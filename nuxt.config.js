@@ -68,6 +68,8 @@ export default {
           primary: '#fa7268',
           accent: colors.grey.darken3,
           secondary:'#e4e7f4',
+          dark: '#2a2d3b',
+          light_yellowish_green: '#dbff90',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
