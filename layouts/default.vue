@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="main-sheet">
     <nav-bar />
     
-    <v-main>
+    <v-main class="main-background">
       <v-container>
         <Nuxt />
       </v-container>
@@ -22,3 +22,18 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/sass/variables.scss";
+
+.main-background {
+  background-color: $background;
+}
+
+.main-sheet {
+  @media only screen and (min-width: 1440px) {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+}
+</style>

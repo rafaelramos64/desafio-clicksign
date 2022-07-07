@@ -1,0 +1,41 @@
+@import './variables.scss';
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto';
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#__layout {
+  background-color: $background !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 3px;
+  background: #ffffff!important;
+}
+
+::-webkit-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  background-color: $primary;
+  opacity: 0;
+  cursor: default;
+  outline: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: $primary--hover;
+}
+
+::-webkit-scrollbar-thumb:not(:hover) ::-webkit-scrollbar-thumb{
+  transition: opacity .1s .5s;
+}
