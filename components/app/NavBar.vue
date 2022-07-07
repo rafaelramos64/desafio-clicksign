@@ -13,16 +13,16 @@
   
     <div class="navbar__input-container">
       <input
-          class="navbar__search"
-          type="text"
-          placeholder="Buscar..."
-        />
+        class="navbar__search-input"
+        type="text"
+        placeholder="Buscar..."
+      />
 
-        <img
-          class="navbar__search-icon"
-          src="@/assets/images/ic-search.png"
-          alt="Search Image"
-        />
+      <img
+        class="navbar__search-icon"
+        src="@/assets/images/ic-search.png"
+        alt="Search Image"
+      />
     </div>
   </div>
 </template>
@@ -54,15 +54,17 @@ export default {
   &__input-container {
     position: relative;
     margin-top: 8px;
+    height: 32px;
 
     @media only screen and (min-width: 600px) {
+      margin: 0;
       width: 71.6%;
     }
   }
 
-  &__search {
-    height: 32px;
+  &__search-input {
     width: 100%;
+    height: 100%;
     background-color: $secondary;
     border-radius: 4px !important;
     color: $search-text;
@@ -74,7 +76,8 @@ export default {
     right: 8px;
     top: 8px;
     height: 16px;
-    width: 16px
+    width: 16px;
+    object-fit: contain;
   }
 }
 </style>
