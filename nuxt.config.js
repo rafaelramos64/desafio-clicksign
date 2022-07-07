@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - desafio-clicksign',
-    title: 'desafio-clicksign',
+    titleTemplate: '%s - Desafio Clicksign',
+    title: 'Ubook',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -17,7 +17,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/scss/main.scss',
+    '~/assets/sass/main.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -60,14 +60,14 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/assets/sass/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
+        light: {
+          primary: '#fa7268',
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          secondary:'#e4e7f4',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
