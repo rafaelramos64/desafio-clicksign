@@ -70,6 +70,7 @@ export default {
           secondary:'#e4e7f4',
           dark: '#2a2d3b',
           light_yellowish_green: '#dbff90',
+          magnify: '#9297AC',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

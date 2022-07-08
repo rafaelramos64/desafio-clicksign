@@ -1,28 +1,22 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
     <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
-    
-   <!--  <v-text-field
-      planceholder="Append"
-      solo
-      dense
-      flat
-      background-color="secondary"
-      append-icon="mdi-magnify"
-    ></v-text-field> -->
   
     <div class="navbar__input-container">
       <input
         class="navbar__search-input"
         type="text"
         placeholder="Buscar..."
+        @click="getFocus(true)"
+        @blur="getFocus(false)"
       />
-
-      <img
+      
+      <v-icon
         class="navbar__search-icon"
-        src="@/assets/images/ic-search.png"
-        alt="Search Image"
-      />
+        :color="focusedSearchIcon ? 'primary' : 'magnify' "
+      >
+        mdi-magnify
+      </v-icon>
     </div>
   </div>
 </template>
@@ -30,6 +24,18 @@
 <script>
 export default {
   name: 'NavBar',
+
+  data () {
+    return {
+      focusedSearchIcon: false,
+    }
+  },
+
+  methods: {
+    getFocus (focus) {
+      this.focusedSearchIcon = focus
+    }
+  }
 }
 </script>
 
@@ -69,7 +75,12 @@ export default {
     border-radius: 4px !important;
     color: $search-text;
     padding-left: 8px;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
+
 
   &__search-icon {
     position: absolute;
@@ -78,6 +89,12 @@ export default {
     height: 16px;
     width: 16px;
     object-fit: contain;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+      color: $primary !important;
+    }
   }
 }
 </style>
