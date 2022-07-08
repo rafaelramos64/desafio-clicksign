@@ -20,6 +20,8 @@
         <span>Criar contato</span>
       </v-btn>
     </v-row>
+
+    <new-contact />
   </v-container>
 </template>
 
@@ -40,7 +42,6 @@ export default {
   }
 
   &__create-btn {
-    text-transform: none;
     width: 237px;
     height: 40px !important;
     padding: 0.75rem 1rem;
