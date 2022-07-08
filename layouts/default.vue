@@ -3,9 +3,7 @@
     <nav-bar />
     
     <v-main class="main-background">
-      <v-container>
-        <Nuxt />
-      </v-container>
+      <Nuxt />
     </v-main>
     
     <footer-bar />
