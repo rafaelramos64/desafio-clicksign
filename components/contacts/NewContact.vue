@@ -73,7 +73,12 @@ export default {
 
   &__contact-card {
     width: 100%;
-    height: 342px;
+    /* Quando coloquei a altura padrão do Zeplin, o conteúdo não cabia no card,
+      mesmo seguindo à risca cada pixel dos components do card, então aumentei para 350px. 
+      Também diminui em 2px os margins de cada inpu para tornar o layout mais fidedigno possível, visualmente falando */
+      
+    /* height: 342px; */
+    height: 350px;
     border-radius: 16px;
     box-shadow: 0 16px 10px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;

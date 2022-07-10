@@ -54,7 +54,7 @@ export default {
     border-radius: 4px;
     border: solid 1px $divisor;
     padding-left: 5px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 
     &:focus-visible {
       outline: none;
