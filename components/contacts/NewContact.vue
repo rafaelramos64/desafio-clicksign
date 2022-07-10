@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <v-row align="center" justify="center" class="main-container">
+  <div class="main-container">
+    <v-row align="center" justify="center">
       <v-col cols="12" md="6">
         <div class="main-container__contact-card ">
           <v-form @submit.prevent="saveContact()">
@@ -31,9 +31,11 @@
 
             <hr>
 
-            <v-btn type="cancel" tile>Cancelar</v-btn>
+            <div class="d-flex justify-end">
+              <v-btn class="mr-4" type="cancel" tilec>Cancelar</v-btn>
 
-            <v-btn type="subimit" rounded disabled>Salvar</v-btn>
+              <v-btn type="subimit" rounded disabled>Salvar</v-btn>
+            </div>
           </v-form>
           <hr>
         </div>
@@ -52,8 +54,8 @@ export default {
 @import "@/assets/sass/variables.scss";
 
 .main-container {
-  width: 100vh;
-  height: 100vh;
+  min-width: 100vh;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
 
   &__contact-card {
