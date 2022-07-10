@@ -1,12 +1,14 @@
 <template>
   <v-app class="main-sheet">
-    <nav-bar />
+    
     
     <v-main class="main-background">
-      <Nuxt />
+      <nav-bar />
+        <Nuxt />
+      <footer-bar />
     </v-main>
     
-    <footer-bar />
+    
   </v-app>
 </template>
 
