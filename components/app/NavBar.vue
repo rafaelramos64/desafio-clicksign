@@ -1,6 +1,8 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
-    <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
+    <v-btn to="/" text color="transparent">
+      <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
+    </v-btn>
   
     <div class="navbar__input-container">
       <input

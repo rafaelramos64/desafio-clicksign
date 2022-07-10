@@ -1,43 +1,43 @@
 <template>
   <v-container fluid class="main-container d-flex">
-    <v-row align="center" justify="center">
-      <v-col cols="12" md="4">
-        <div class="main-container__contact-card ">
+    <v-row align="center" justify="center" no-gutters>
+      <v-col cols="12" md="4" class="pa-0 ma-0">
+        <div class="main-container__contact-card pt-4 px-4">
           <v-form @submit.prevent="saveContact()">
             <span class="main-container__title">Criar novo contato</span>
 
             <hr class="main-container__divisor1">
 
-            <div class="px-2">
-              <v-text-field
-                label="Nome"
-                height="32px"
-                outlined
-                single-line
-                solo
-              />
-
-              <v-text-field
-                label="E-mail"
-                outlined
-                single-line
-                solo
-              />
-
-              <v-text-field
-                label="Telefone"
-                outlined
-                single-line
-                solo
+            <div v-for="(input, index) in inputs" :key="index">
+              <form-input
+                :label="input.label"
+                :inputType="input.inputType"
+                :width="input.width"
+                :height="input.height"
               />
             </div>
 
             <hr class="main-container__divisor2">
 
             <div class="d-flex justify-end">
-              <v-btn class="mr-4" type="cancel" tilec>Cancelar</v-btn>
+              <v-btn
+                class="main-container__cancel-button mr-4"
+                type="cancel"
+                color="primary"
+                depressed
+                rounded
+                text
+              >
+                Cancelar
+              </v-btn>
 
-              <v-btn type="subimit" rounded disabled>Salvar</v-btn>
+              <v-btn
+                class="main-container__save-button main-container__save-button--disabled"
+                type="subimit"
+                color="primary"
+              >
+                Salvar
+              </v-btn>
             </div>
           </v-form>
         </div>
@@ -48,7 +48,15 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      inputs: [
+        { label: 'Nome', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'E-mail', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'Telefone', inputType: 'text',  width: '128px', height: '32px', },
+      ]
+    }
+  }
 }
 </script>
 
@@ -66,7 +74,6 @@ export default {
   &__contact-card {
     width: 100%;
     height: 342px;
-    padding: 16px;
     border-radius: 16px;
     box-shadow: 0 16px 10px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
@@ -83,23 +90,34 @@ export default {
   &__divisor1, &__divisor2 {
     width: calc(100% + 32px);
     height: 2px;
-    margin: 12.5px 0 19.5px -16px ;
+   /*  margin: 12.5px 0 19.5px -16px ; */
+    margin: 12px 0 19px -16px ;
     border: solid 1px $divisor;
   }
 
   &__divisor2 { 
-    margin: 22px 0 15px -16px;
+    margin: 6px 0 15px -16px;
   }
-}
 
+  &__save-button, &__cancel-button {
+    width: 4.5rem !important;
+    height: 2rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    border-radius: 16px !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16)  !important;
 
-// Formatando configurações para text-fields
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
-  box-shadow: none !important;
-}
+    &--disabled {
+      opacity: 0.32;
+    }
+  }
 
-.v-text-field--filled > .v-input__control > .v-input__slot, .v-text-field--full-width > .v-input__control > .v-input__slot, .v-text-field--outlined > .v-input__control > .v-input__slot {
-  align-items: stretch;
-  min-height: 32px;
+  &__cancel-button {
+    width: auto!important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
 }
 </style>
