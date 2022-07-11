@@ -56,8 +56,8 @@ export default {
     return {
       inputs: [
         { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', },
-        { label: 'E-mail', input: 'email', inputType: 'text',  width: '100%', height: '32px', },
-        { label: 'Telefone', input: 'phoneNumber', inputType: 'text',  width: '128px', height: '32px', },
+        { label: 'E-mail', input: 'email', inputType: 'email',  width: '100%', height: '32px', },
+        { label: 'Telefone', input: 'phoneNumber', inputType: 'number',  width: '128px', height: '32px', },
       ],
       emptyInputs: true,
     }
@@ -75,7 +75,16 @@ export default {
   },
 
   methods: {
-    
+    saveContact () {
+      const parsed = JSON.stringify([this.getContactInputsContent])
+
+      if (localStorage.listContacts) {
+        localStorage.setItem('listContacts', localStorage.getItem('listContacts') + parsed)
+
+      } else {
+        localStorage.setItem('listContacts', parsed)
+      }
+    }
   }
 }
 </script>

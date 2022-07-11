@@ -30,6 +30,21 @@
 <script>
 export default {
   name: 'Home',
+  data () {
+    return {
+      contacts: [],
+    }
+  },
+
+  mounted () {
+    this.getData()
+  },
+
+  methods: {
+    getData () {
+      this.contacts = JSON.parse( localStorage.listContacts || '[]')
+    }
+  }
 }
 </script>
 
