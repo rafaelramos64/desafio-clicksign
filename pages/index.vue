@@ -1,31 +1,50 @@
 <template>
-  <v-container class="home">
-    <v-row justify="center" align="center">
-      <img width="237px" height="200px" src="@/assets/images/ic-book@3x.png" alt="Book Image" />
-    </v-row>
+  <div>
+    <v-container class="home">
+      <v-row justify="center" align="center">
+        <img width="237px" height="200px" src="@/assets/images/ic-book@3x.png" alt="Book Image" />
+      </v-row>
 
-    <v-row justify="center" align="center" class="my-6">
-      <span class="home__text">Nenhum contato foi criado ainda.</span>
-    </v-row>
+      <v-row justify="center" align="center" class="my-6">
+        <span class="home__text">Nenhum contato foi criado ainda.</span>
+      </v-row>
 
-    <v-row justify="center" align="center">
-      <v-btn class="home__create-btn" color="light_yellowish_green">
-        <img
-          width="16px"
-          height="16px"
-          src="@/assets/images/ic-plus.png"
-          alt="Plus Icon"
-          class="mr-2"
-        />
-        <span>Criar contato</span>
-      </v-btn>
-    </v-row>
-  </v-container>
+      <v-row justify="center" align="center">
+        <v-btn class="home__create-btn" color="light_yellowish_green">
+          <img
+            width="16px"
+            height="16px"
+            src="@/assets/images/ic-plus.png"
+            alt="Plus Icon"
+            class="mr-2"
+          />
+          <span>Criar contato</span>
+        </v-btn>
+      </v-row>
+    </v-container>
+    
+    <new-contact />
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Home',
+  data () {
+    return {
+      contacts: [],
+    }
+  },
+
+  mounted () {
+    this.getData()
+  },
+
+  methods: {
+    getData () {
+      this.contacts = JSON.parse(localStorage.listContacts || '[]')
+    }
+  }
 }
 </script>
 
@@ -40,7 +59,6 @@ export default {
   }
 
   &__create-btn {
-    text-transform: none;
     width: 237px;
     height: 40px !important;
     padding: 0.75rem 1rem;

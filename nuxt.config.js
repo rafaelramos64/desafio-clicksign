@@ -28,6 +28,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/app',
+      '~/components/contacts',
     ]
   },
 

@@ -1,6 +1,8 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
-    <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
+    <v-btn to="/" text color="transparent">
+      <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
+    </v-btn>
   
     <div class="navbar__input-container">
       <input
@@ -60,7 +62,11 @@ export default {
   &__input-container {
     position: relative;
     margin-top: 8px;
-    height: 32px;
+
+    /* Aqui foi diminuido 1px do valor padrão que está no Zeplin porque eu adicionei uma borda de exatamente
+      1px para quando o input de pesquisa estiver em foco, a transição de cor da borda ficar mais fluida 
+      sem a sensação que o input aumentou de tamanho */
+    height: 31px;
 
     @media only screen and (min-width: 600px) {
       margin: 0;
@@ -72,12 +78,19 @@ export default {
     width: 100%;
     height: 100%;
     background-color: $secondary;
+
+    // Adicionando borda de 1px
+    border: solid 1px $secondary;
     border-radius: 4px !important;
     color: $search-text;
     padding-left: 8px;
 
     &:focus-visible {
       outline: none;
+
+      // Adicionando transição de cor
+      border: 1px solid $primary;
+      transition: 0.5s;
     }
   }
 
