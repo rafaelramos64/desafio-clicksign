@@ -76,13 +76,22 @@ export default {
 
   methods: {
     saveContact () {
-      const parsed = JSON.stringify([this.getContactInputsContent])
-
       if (localStorage.listContacts) {
-        localStorage.setItem('listContacts', localStorage.getItem('listContacts') + parsed)
+        const oldListContacts = localStorage.getItem('listContacts')
+        const oldListContactsJson = JSON.parse(oldListContacts)
+
+        oldListContactsJson.push(this.getContactInputsContent)
+
+        const listContactsString = JSON.stringify(oldListContactsJson )
+
+        localStorage.setItem('listContacts', listContactsString)
 
       } else {
-        localStorage.setItem('listContacts', parsed)
+        const listContacts = []
+        
+        listContacts.push(this.getContactInputsContent)
+
+        localStorage.setItem('listContacts', JSON.stringify(listContacts))
       }
     }
   }

@@ -42,7 +42,7 @@ export default {
 
   methods: {
     getData () {
-      this.contacts = JSON.parse( localStorage.listContacts || '[]')
+      this.contacts = JSON.parse(localStorage.listContacts || '[]')
     }
   }
 }
