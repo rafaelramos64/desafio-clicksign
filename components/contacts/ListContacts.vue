@@ -5,20 +5,21 @@
         <v-simple-table
           fixed-header
           height="300px"
+          class="table"
         >
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">
-                  Nome
+                <th class="table__th text-left">
+                  Contatos
                 </th>
-                <th class="text-left">
+                <th class="table__th text-left">
                   E-mail
                 </th>
-                <th class="text-left">
+                <th class="table__th text-left">
                   Telefone
                 </th>
-                <th class="text-right">
+                <th class="table__th text-right">
                   <span class="mr-5">Ações</span>
                 </th>
               </tr>
@@ -29,9 +30,21 @@
                 v-for="(contact, index) in getContacts"
                 :key="index"
               >
-                <td>{{ contact.name }}</td>
-                <td>{{ contact.email }}</td>
-                <td>{{ contact.phoneNumber }}</td>
+                <td class="table__td d-fle">
+                  <v-btn
+                    icon
+                    height="24px"
+                    width="24px"
+                    class="text-uppercase table__contact-button mr-4 d-inline-flex align-center"
+                    :style="`background-color: ${contactColors[index]}`"
+                  >
+                    <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
+                  </v-btn>
+                  <span>{{ contact.name }}</span>
+                </td>
+
+                <td class="table__td">{{ contact.email }}</td>
+                <td class="table__td">{{ contact.phoneNumber }}</td>
 
                 <td class="d-flex justify-end">
                   <v-btn icon color="primary" @click.prevent="editContact()">
@@ -58,12 +71,36 @@ export default {
   name: 'lit-contacts',
   data () {
     return {
-
+      contactColors: []
     }
+  },
+
+  created () {
+    this.getContactColors()
   },
 
   computed: {
     ...mapGetters(['getContacts'])
+  },
+
+  methods: {
+
+    getContactColors () {
+      const colors = [
+        '#fa8d68',
+        '#90d26c',
+        '#68a0fa',
+        '#fab668',
+        '#8368fa',
+        '#fa68b5',
+        '#5fe2c4',
+        '#f55a5a',
+      ]
+
+      for (let index = 0; index < 30; index++) {
+        this.contactColors.push(...colors)
+      }
+    }
   }
 }
 </script>
@@ -71,4 +108,37 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/sass/variables.scss";
 
+
+.v-data-table {
+  background-color: $very-light-pink;
+  border: 1px solid $border-table;
+}
+
+.table {
+  &__th, &__td, &__contact-button  {
+    font-size: 0.813rem !important;
+    font-weight: normal !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    color: $bluey-grey !important;
+  }
+
+  &__td {
+    font-size: 0.875rem !important;
+    color: $dark !important;
+    pointer-events: none;
+  }
+
+  &__contact-button {
+    font-size: 1rem !important;
+    color: #fff !important;
+  }
+
+  &__contact-letter {
+    margin-top: 1px;
+    margin-right: 1px;
+  }
+}
 </style>

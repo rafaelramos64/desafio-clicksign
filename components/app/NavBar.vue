@@ -82,7 +82,7 @@ export default {
     // Adicionando borda de 1px
     border: solid 1px $secondary;
     border-radius: 4px !important;
-    color: $search-text;
+    color: $bluey-grey;
     padding-left: 8px;
 
     &:focus-visible {
