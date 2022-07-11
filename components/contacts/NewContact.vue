@@ -14,6 +14,8 @@
                 :inputType="input.inputType"
                 :width="input.width"
                 :height="input.height"
+                :input="input.input"
+                :id="input.index"
               />
             </div>
 
@@ -30,9 +32,9 @@
               >
                 Cancelar
               </v-btn>
-
               <v-btn
-                class="main-container__save-button main-container__save-button--disabled"
+                class="main-container__save-button"
+                :class="{ 'main-container__save-button--disabled': verifyEmptyInputs }"
                 type="subimit"
                 color="primary"
               >
@@ -47,15 +49,31 @@
 </template>
 
 <script>
+import { mapGetters, } from 'vuex'
+
 export default {
   data () {
     return {
       inputs: [
-        { label: 'Nome', inputType: 'text',  width: '100%', height: '32px', },
-        { label: 'E-mail', inputType: 'text',  width: '100%', height: '32px', },
-        { label: 'Telefone', inputType: 'text',  width: '128px', height: '32px', },
-      ]
+        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'E-mail', input: 'email', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'Telefone', input: 'phoneNumber', inputType: 'text',  width: '128px', height: '32px', },
+      ],
+      emptyInputs: true,
     }
+  },
+
+   computed: {
+    ...mapGetters(['getContactInputsContent']),
+
+    verifyEmptyInputs () {
+      const input = this.getContactInputsContent
+      return input.name === '' && input.email === '' && input.phoneNumber === ''
+    },
+  },
+
+  methods: {
+    
   }
 }
 </script>
@@ -76,7 +94,7 @@ export default {
     /* Quando coloquei a altura padrão do Zeplin, o conteúdo não cabia no card,
       mesmo seguindo à risca cada pixel dos components do card, então aumentei para 350px. 
       Também diminui em 2px os margins de cada inpu para tornar o layout mais fidedigno possível, visualmente falando */
-      
+
     /* height: 342px; */
     height: 350px;
     border-radius: 16px;

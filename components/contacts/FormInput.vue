@@ -1,17 +1,20 @@
 <template>
   <div class="field px-2">
-    <label class="field__label d-flex flex-column" for="input" >{{ label }}</label>
+    <label class="field__label d-flex flex-column" :for="`input${id}`" >{{ label }}</label>
     <!-- <br> -->
     <input
-      id="input"
+      :id="`input${id}`"
       class="field__input"
       :style="`width: ${width}; height: ${height};`"
       :type="inputType"
+      v-model="typedContent"
     />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'form-input',
   props: {
@@ -30,13 +33,31 @@ export default {
     height: {
       type: String,
       default: '32px',
+    },
+    input: {
+      type: String,
+      default: '',
+    },
+    id: {
+      type: Number,
+      default: 0,
     }
   },
 
   data () {
     return {
-
+      typedContent: '',
     }
+  },
+
+  watch: {
+    typedContent () {
+      this.addContactInputsContent({ typedContent: this.typedContent , inputId: this.input})
+    }
+  },
+
+  methods: {
+    ...mapActions(['addContactInputsContent'])
   }
 }
 </script>
