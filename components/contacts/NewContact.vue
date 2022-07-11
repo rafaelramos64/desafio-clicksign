@@ -67,8 +67,10 @@ export default {
     ...mapGetters(['getContactInputsContent']),
 
     verifyEmptyInputs () {
-      const input = this.getContactInputsContent
-      return input.name === '' && input.email === '' && input.phoneNumber === ''
+      const values = Object.values(this.getContactInputsContent)
+      const hasEmptyValue = values.some(value => !value === false)
+
+      return !hasEmptyValue
     },
   },
 
