@@ -11,7 +11,7 @@
             <thead>
               <tr>
                 <th class="table__th text-left">
-                  Contatos
+                  <span class="ml-sm-9">Contatos</span>
                 </th>
                 <th class="table__th text-left">
                   E-mail
@@ -29,18 +29,19 @@
               <tr
                 v-for="(contact, index) in getContacts"
                 :key="index"
+                class="table__tr"
               >
-                <td class="table__td d-fle">
+                <td class="table__td px-2">
                   <v-btn
                     icon
                     height="24px"
                     width="24px"
-                    class="text-uppercase table__contact-button mr-4 d-inline-flex align-center"
+                    class="mr-4 text-uppercase table__contact-button d-inline-flex align-center"
                     :style="`background-color: ${contactColors[index]}`"
                   >
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
-                  <span>{{ contact.name }}</span>
+                  <span class="text-capitalize">{{ contact.name }}</span>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
@@ -110,7 +111,7 @@ export default {
 
 
 .v-data-table {
-  background-color: $very-light-pink;
+  background-color: #fff;
   border: 1px solid $border-table;
 }
 
@@ -125,15 +126,19 @@ export default {
     color: $bluey-grey !important;
   }
 
+  &__tr:hover {
+    background-color: $very-light-pink !important;
+  }
+
   &__td {
     font-size: 0.875rem !important;
     color: $dark !important;
-    pointer-events: none;
   }
 
   &__contact-button {
     font-size: 1rem !important;
     color: #fff !important;
+    pointer-events: none;
   }
 
   &__contact-letter {
