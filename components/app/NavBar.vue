@@ -1,6 +1,6 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
-    <v-btn to="/" text color="transparent">
+    <v-btn to="/" text color="transparent" class="pa-0">
       <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
     </v-btn>
   
@@ -82,7 +82,7 @@ export default {
     // Adicionando borda de 1px
     border: solid 1px $secondary;
     border-radius: 4px !important;
-    color: $search-text;
+    color: $bluey-grey;
     padding-left: 8px;
 
     &:focus-visible {

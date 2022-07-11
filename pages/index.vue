@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <v-container class="home">
+  <div class="pa-4">
+    <list-contacts v-if="getContacts" />
+    
+    <v-container v-else>
       <v-row justify="center" align="center">
         <img width="237px" height="200px" src="@/assets/images/ic-book@3x.png" alt="Book Image" />
       </v-row>
@@ -10,7 +12,11 @@
       </v-row>
 
       <v-row justify="center" align="center">
-        <v-btn class="home__create-btn" color="light_yellowish_green">
+        <v-btn
+          class="home__create-btn"
+          color="light_yellowish_green"
+          @click.prevent="openAddContactModal(true)"
+        >
           <img
             width="16px"
             height="16px"
@@ -23,27 +29,32 @@
       </v-row>
     </v-container>
     
-    <new-contact />
+    <new-contact v-if="getOpenAddContactModal" />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import ListContacts from '~/components/contacts/ListContacts.vue'
+
 export default {
+  components: { ListContacts },
   name: 'Home',
   data () {
     return {
-      contacts: [],
     }
   },
 
   mounted () {
-    this.getData()
+    this.searchContacts()
+  },
+
+  computed: {
+    ...mapGetters(['getOpenAddContactModal', 'getContacts']),
   },
 
   methods: {
-    getData () {
-      this.contacts = JSON.parse(localStorage.listContacts || '[]')
-    }
+    ...mapActions(['openAddContactModal', 'searchContacts']),
   }
 }
 </script>
