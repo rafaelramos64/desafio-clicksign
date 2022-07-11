@@ -4,19 +4,21 @@
       <v-col cols="12" md="4" class="pa-0 ma-0">
         <div class="main-container__contact-card pt-4 px-4">
           <v-form @submit.prevent="saveContact()">
-            <span class="main-container__title">Criar novo contato</span>
+            <span class="main-container__title">{{ title }}</span>
 
             <hr class="main-container__divisor1">
-
-            <div v-for="(input, index) in inputs" :key="index">
-              <form-input
-                :label="input.label"
-                :inputType="input.inputType"
-                :width="input.width"
-                :height="input.height"
-                :input="input.input"
-                :id="input.index"
-              />
+            
+            <div v-if="operation === 'Create Contact'">
+              <div v-for="(input, index) in inputs" :key="index">
+                <form-input
+                  :label="input.label"
+                  :inputType="input.inputType"
+                  :width="input.width"
+                  :height="input.height"
+                  :input="input.input"
+                  :id="input.index"
+                />
+              </div>
             </div>
 
             <hr class="main-container__divisor2">
@@ -24,22 +26,23 @@
             <div class="d-flex justify-end">
               <v-btn
                 class="main-container__cancel-button mr-4"
-                type="cancel"
+                :type="firstButton.type"
                 color="primary"
                 depressed
                 rounded
                 text
                 @click.prevent="openAddContactModal(false)"
               >
-                Cancelar
+                {{ firstButton.text }}
               </v-btn>
               <v-btn
                 class="main-container__save-button"
                 :class="{ 'main-container__save-button--disabled': verifyEmptyInputs }"
-                type="subimit"
+                :type="secondButton.type"
                 color="primary"
+                @click="saveContact()"
               >
-                Salvar
+                {{ secondButton.text }}
               </v-btn>
             </div>
           </v-form>
@@ -53,14 +56,38 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'new-contact',
+  name: 'contact-modal',
+  props: {
+    operation: {
+      type: String,
+      default: 'Create Contact'
+    },
+
+    inputs: {
+      type: Array,
+    },
+
+    title: {
+      type: String,
+      default: 'Criar novo contato',
+    },
+
+    firstButton: {
+      type: Object,
+      default() {
+        return { buttonType: 'cancel', text: 'Cancelar' }
+      }
+    },
+
+    secondButton: {
+      type: Object,
+      default() {
+        return { buttonType: 'submit', text: 'Salvar' }
+      }
+    },
+  },
   data () {
     return {
-      inputs: [
-        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', },
-        { label: 'E-mail', input: 'email', inputType: 'email',  width: '100%', height: '32px', },
-        { label: 'Telefone', input: 'phoneNumber', inputType: 'number',  width: '128px', height: '32px', },
-      ],
       emptyInputs: true,
     }
   },

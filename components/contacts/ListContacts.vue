@@ -4,7 +4,7 @@
       <v-col cols="12" class="pa-0">
         <v-simple-table
           fixed-header
-          height="300px"
+          max-height="300px"
           class="table"
         >
           <template v-slot:default>

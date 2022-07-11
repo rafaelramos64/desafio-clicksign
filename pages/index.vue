@@ -12,36 +12,28 @@
       </v-row>
 
       <v-row justify="center" align="center">
-        <v-btn
-          class="home__create-btn"
-          color="light_yellowish_green"
-          @click.prevent="openAddContactModal(true)"
-        >
-          <img
-            width="16px"
-            height="16px"
-            src="@/assets/images/ic-plus.png"
-            alt="Plus Icon"
-            class="mr-2"
-          />
-          <span>Criar contato</span>
-        </v-btn>
+        <create-contact-button />
       </v-row>
     </v-container>
+
+    <contact-modal v-if="getOpenAddContactModal" :inputs="inputs" />
     
-    <new-contact v-if="getOpenAddContactModal" />
+    <!-- <new-contact v-if="getOpenAddContactModal" /> -->
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ListContacts from '~/components/contacts/ListContacts.vue'
 
 export default {
-  components: { ListContacts },
   name: 'Home',
   data () {
     return {
+      inputs: [
+        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'E-mail', input: 'email', inputType: 'email',  width: '100%', height: '32px', },
+        { label: 'Telefone', input: 'phoneNumber', inputType: 'number',  width: '128px', height: '32px', },
+      ],
     }
   },
 
@@ -54,7 +46,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['openAddContactModal', 'searchContacts']),
+    ...mapActions(['searchContacts']),
   }
 }
 </script>
@@ -67,29 +59,6 @@ export default {
 
   &__text {
     color: $dark;
-  }
-
-  &__create-btn {
-    width: 237px;
-    height: 40px !important;
-    padding: 0.75rem 1rem;
-    border-radius: 20px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
-      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16);
-
-    & span {
-      font-size: 0.875rem !important;
-      font-weight: 500 !important;
-      color: $primary;
-    }
-
-    @media only screen and (min-width: 600px) {
-      /* Aqui foi retirado a largura que está no Zeplin porque acaba que o texto fica muito próximo às bordas,
-      deixando o botão despadronizado com relação ao modelo no Zeplin, visualmente falando. */
-
-    /* width: 144px; */
-      width: auto;
-    }
   }
 }
 
