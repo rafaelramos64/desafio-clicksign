@@ -29,6 +29,7 @@
                 depressed
                 rounded
                 text
+                @click.prevent="openAddContactModal(false)"
               >
                 Cancelar
               </v-btn>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import { mapGetters, } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -75,6 +76,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['openAddContactModal']),
+
     saveContact () {
       if (localStorage.listContacts) {
         const oldListContacts = localStorage.getItem('listContacts')
@@ -154,6 +157,7 @@ export default {
 
     &--disabled {
       opacity: 0.32;
+      pointer-events: none;
     }
   }
 

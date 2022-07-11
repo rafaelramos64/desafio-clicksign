@@ -1,6 +1,6 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
-    <v-btn to="/" text color="transparent">
+    <v-btn to="/" text color="transparent" class="pa-0">
       <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
     </v-btn>
   

@@ -8,6 +8,8 @@ export const state = () => ({
     email: '' ,
     phoneNumber: '' ,
   },
+  openAddContactModal: false,
+  contacts: [],
 })
 
 export default {
