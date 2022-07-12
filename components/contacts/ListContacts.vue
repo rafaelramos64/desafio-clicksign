@@ -41,7 +41,7 @@
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
 
-                  <span class="text-capitalize">{{ contact.name }} {{ index }}</span>
+                  <span class="text-capitalize">{{ getNameSurname(contact.name) }}</span>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
@@ -112,6 +112,15 @@ export default {
       for (let index = 0; index < 30; index++) {
         this.contactColors.push(...colors)
       }
+    },
+
+    getNameSurname (fullName) {
+      const fullNameSplited = fullName.split(' ')
+
+      const firstName = fullNameSplited[0]
+      const lastName = fullNameSplited[fullNameSplited.length - 1]
+
+      return firstName + ' ' + lastName
     },
 
     editContact () {
