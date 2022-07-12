@@ -49,7 +49,7 @@
                 :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create'}"
                 :type="secondButton.type"
                 color="primary"
-                @click="saveContact()"
+                @click.prevent="saveContact()"
               >
                 {{ secondButton.text }}
               </v-btn>
@@ -113,7 +113,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['openAddContactModal']),
+    ...mapActions(['openAddContactModal', 'clearContactInputsContent']),
 
     saveContact () {
       if (localStorage.listContacts) {
@@ -133,6 +133,9 @@ export default {
 
         localStorage.setItem('listContacts', JSON.stringify(listContacts))
       }
+
+      this.openAddContactModal({ open: false, operation: ''})
+      this.clearContactInputsContent()
     }
   }
 }

@@ -4,6 +4,10 @@ export default {
     context.commit('changeContactInputsContent', payload)
   },
   
+  clearContactInputsContent (context) {
+    context.commit('clearContactInputsContent')
+  },
+
   openAddContactModal (context, payload) {
     context.commit('changeStatusAddContactModal', payload)
   },
