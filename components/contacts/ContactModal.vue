@@ -1,16 +1,19 @@
 <template>
-  <v-container fluid class="main-container d-flex">
+  <v-container fluid class="container d-flex">
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="4" class="pa-0 ma-0">
-        <div class="main-container__contact-card pt-4 px-4">
+        <div class="container__contact-card pt-4 px-4">
           <v-form @submit.prevent="saveContact()">
-            <span class="main-container__title">{{ title }}</span>
+            <span class="container__title">{{ title }}</span>
 
-            <hr class="main-container__divisor1">
+            <hr class="container__divisor1">
             
-            <div v-if="operation === 'Create Contact'">
-              <div v-for="(input, index) in inputs" :key="index">
+            <div class="central-content">
+              <div v-if="operation === 'create'">
                 <form-input
+                  v-for="(input, index) in centralContent"
+                  :key="index"
+
                   :label="input.label"
                   :inputType="input.inputType"
                   :width="input.width"
@@ -19,25 +22,31 @@
                   :id="input.index"
                 />
               </div>
+
+              <div v-else-if="operation === 'delete'" class="central-content__delete">
+                {{ centralContent[0] }}
+              </div>
             </div>
 
-            <hr class="main-container__divisor2">
+            
 
-            <div class="d-flex justify-end">
+            <hr class="container__divisor2">
+
+            <div class="d-flex justify-end container-buttons">
               <v-btn
-                class="main-container__cancel-button mr-4"
+                class="container-buttons__cancel-button mr-4"
                 :type="firstButton.type"
                 color="primary"
                 depressed
                 rounded
                 text
-                @click.prevent="openAddContactModal(false)"
+                @click.prevent="openAddContactModal({ open: false, operation: ''})"
               >
                 {{ firstButton.text }}
               </v-btn>
               <v-btn
-                class="main-container__save-button"
-                :class="{ 'main-container__save-button--disabled': verifyEmptyInputs }"
+                class="container-buttons__save-button"
+                :class="{ 'container__save-button--disabled': verifyEmptyInputs }"
                 :type="secondButton.type"
                 color="primary"
                 @click="saveContact()"
@@ -60,10 +69,10 @@ export default {
   props: {
     operation: {
       type: String,
-      default: 'Create Contact'
+      default: 'create'
     },
 
-    inputs: {
+    centralContent: {
       type: Array,
     },
 
@@ -132,7 +141,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/sass/variables.scss";
 
-.main-container {
+.container {
   position: fixed;
   inset: 0;
   min-width: 100%;
@@ -172,7 +181,16 @@ export default {
   &__divisor2 { 
     margin: 6px 0 15px -16px;
   }
+}
 
+.central-content {
+  &__delete {
+    font-size: 0.875rem;
+    color: $dark;
+  }
+}
+
+.container-buttons {
   &__save-button, &__cancel-button {
     width: 4.5rem !important;
     height: 2rem !important;

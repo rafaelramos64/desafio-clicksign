@@ -29,7 +29,7 @@
                 depressed
                 rounded
                 text
-                @click.prevent="openAddContactModal(false)"
+                @click.prevent="openAddContactModal({ open: false, operation: ''})"
               >
                 Cancelar
               </v-btn>

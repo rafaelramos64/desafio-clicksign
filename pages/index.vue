@@ -16,7 +16,23 @@
       </v-row>
     </v-container>
 
-    <contact-modal v-if="getOpenAddContactModal" :inputs="inputs" />
+    <contact-modal
+      v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'create'" 
+      :centralContent="inputs" 
+    />
+
+     <contact-modal
+      v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'edit'" 
+      :centralContent="inputs" 
+    />
+
+     <contact-modal
+      v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'delete'" 
+      :operation="getOpenAddContactModal.operation"
+      title="Excluir contato"
+      :secondButton="{ buttonType: 'delete', text: 'Excluir' }"
+      :centralContent="['Deseja realmente excluir o contato?']"
+    />
     
     <!-- <new-contact v-if="getOpenAddContactModal" /> -->
   </div>

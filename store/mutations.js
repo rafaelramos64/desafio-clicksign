@@ -5,7 +5,8 @@ export default {
   },
   
   changeStatusAddContactModal (state, payload) {
-    state.openAddContactModal = payload
+    state.openAddContactModal.open = payload.open
+    state.openAddContactModal.operation = payload.operation
   },
   
   changeContacts (state, payload) {

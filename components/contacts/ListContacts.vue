@@ -47,12 +47,22 @@
                 <td class="table__td">{{ contact.email }}</td>
                 <td class="table__td">{{ contact.phoneNumber }}</td>
 
-                <td class="d-flex justify-end">
-                  <v-btn icon color="primary" @click.prevent="editContact()">
+                <td class="d-flex justify-end align-center">
+                  <v-btn
+                    class="table__icon"
+                    icon
+                    color="primary"
+                    @click.prevent="editContact()"
+                  >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
 
-                  <v-btn icon color="primary" @click.prevent="deleteContact()">
+                  <v-btn
+                    class="table__icon"
+                    icon
+                    color="primary"
+                    @click.prevent="openAddContactModal({ open: true, operation: 'delete'})"
+                  >
                     <img width="16px" height="16px" src="@/assets/images/ic-delete@2x.png" alt="Delete Icon">
                   </v-btn>
                 </td>
@@ -66,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'lit-contacts',
@@ -85,6 +95,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['openAddContactModal']),
 
     getContactColors () {
       const colors = [
@@ -101,7 +112,7 @@ export default {
       for (let index = 0; index < 30; index++) {
         this.contactColors.push(...colors)
       }
-    }
+    },
   }
 }
 </script>
@@ -144,6 +155,12 @@ export default {
   &__contact-letter {
     margin-top: 1px;
     margin-right: 1px;
+  }
+
+  &__icon:hover {
+    transform: scale(1.1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <v-btn
     class="create-btn"
     color="light_yellowish_green"
-    @click.prevent="openAddContactModal(true)"
+    @click.prevent="openAddContactModal({ open: true, operation: 'create'})"
   >
     <img
       width="16px"
