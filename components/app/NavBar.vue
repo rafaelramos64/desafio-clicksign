@@ -4,7 +4,7 @@
       <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
     </v-btn>
 
-    <create-contact-button v-if="getContacts" />
+    <create-contact-button v-if="getContacts" :block="$vuetify.breakpoint.xs" />
   
     <div class="navbar__input-container">
       <input

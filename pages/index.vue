@@ -2,7 +2,7 @@
   <div class="pa-4">
     <list-contacts v-if="getContacts" />
     
-    <v-container v-else>
+    <v-container v-else class="home">
       <v-row justify="center" align="center">
         <img width="237px" height="200px" src="@/assets/images/ic-book@3x.png" alt="Book Image" />
       </v-row>
@@ -71,7 +71,7 @@ export default {
 @import "@/assets/sass/variables.scss";
 
 .home {
-  margin-top: 96px;
+  margin-top: 80px;
 
   &__text {
     color: $dark;

@@ -1,6 +1,7 @@
 <template>
   <v-btn
-    class="create-btn"
+    class="create-btn my-3 my-sm-0"
+    :block="block"
     color="light_yellowish_green"
     @click.prevent="openAddContactModal({ open: true, operation: 'create'})"
   >
@@ -20,6 +21,7 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'create-contact-button',
+  props: ['block'],
 
   methods: {
     ...mapActions(['openAddContactModal']),

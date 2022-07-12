@@ -4,7 +4,6 @@
       <v-col cols="12" class="pa-0">
         <v-simple-table
           fixed-header
-          max-height="300px"
           class="table"
         >
           <template v-slot:default>
@@ -31,16 +30,17 @@
                 :key="index"
                 class="table__tr"
               >
-                <td class="table__td px-2">
+                <td class="table__td pl-2">
                   <v-btn
                     icon
                     height="24px"
                     width="24px"
-                    class="mr-4 text-uppercase table__contact-button d-inline-flex align-center"
+                    class="mr-xs-2 mr-sm-4 text-uppercase table__contact-button d-inline-flex align-center"
                     :style="`background-color: ${contactColors[index]}`"
                   >
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
+
                   <span class="text-capitalize">{{ contact.name }}</span>
                 </td>
 

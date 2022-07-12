@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute app>
+  <v-footer fixed app>
     <h1>footer</h1>
   </v-footer>
 </template>
