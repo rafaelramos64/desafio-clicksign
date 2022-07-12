@@ -113,7 +113,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['openAddContactModal', 'clearContactInputsContent']),
+    ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts',]),
 
     actionForContact (operation) {
       switch (operation) {
@@ -125,9 +125,12 @@ export default {
           break
 
         case 'delete':
-          this.deleteContact (this.getOpenAddContactModal.contactId)
+          this.deleteContact(this.getOpenAddContactModal.contactId)
           break
       }
+      
+      this.openAddContactModal({ open: false, operation: ''})
+      this.searchContacts()
     },
 
     createContact (contactInputsContent) {
@@ -149,7 +152,6 @@ export default {
         localStorage.setItem('contactsList', JSON.stringify(contacts))
       }
 
-      this.openAddContactModal({ open: false, operation: ''})
       this.clearContactInputsContent()
     },
 
@@ -159,12 +161,18 @@ export default {
 
     deleteContact (id) {
       const oldContactsList = localStorage.getItem('contactsList')
+
       const oldContactsListJson = JSON.parse(oldContactsList)
+      
+      /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
+        Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
+      const contactListDeleted = oldContactsListJson.splice(id, 1)
+      console.log('Contato deletado!')
+      console.table(contactListDeleted)
 
-      const newContactsList = oldContactsListJson.filter( contact => contact.id !== id)
+      const newContactsList = oldContactsListJson
 
-      const newContactsListString = JSON.stringify(newContactsList)
-      localStorage.setItem('contactsList', newContactsListString)
+      localStorage.setItem('contactsList', JSON.stringify(newContactsList))
     }
   }
 }
