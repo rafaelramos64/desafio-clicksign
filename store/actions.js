@@ -13,6 +13,6 @@ export default {
   },
   
   searchContacts (context) {
-    context.commit('changeContacts', JSON.parse(localStorage.listContacts || '[]'))
+    context.commit('changeContacts', JSON.parse(localStorage.contactsList || '[]'))
   },
 }

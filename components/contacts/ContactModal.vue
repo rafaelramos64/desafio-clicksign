@@ -102,7 +102,7 @@ export default {
   },
 
    computed: {
-    ...mapGetters(['getContactInputsContent', 'openAddContactModal']),
+    ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal']),
 
     verifyEmptyInputs () {
       const values = Object.values(this.getContactInputsContent)
@@ -118,32 +118,35 @@ export default {
     actionForContact (operation) {
       switch (operation) {
         case 'create':
-          this.createContact()
+          this.createContact(this.getContactInputsContent)
+          break
 
         case 'edit':
+          break
 
         case 'delete':
-          this.deleteContact (this.openAddContactModal.contactId)
+          this.deleteContact (this.getOpenAddContactModal.contactId)
+          break
       }
     },
 
-    createContact () {
+    createContact (contactInputsContent) {
       if (localStorage.contactsList) {
         const oldContactsList = localStorage.getItem('contactsList')
         const oldContactsListJson = JSON.parse(oldContactsList)
 
-        oldContactsListJson.push(this.getContactInputsContent)
+        oldContactsListJson.push(contactInputsContent)
 
         const contactsListString = JSON.stringify(oldContactsListJson )
 
         localStorage.setItem('contactsList', contactsListString)
 
       } else {
-        const contactsList = []
+        const contacts = []
         
-        contactsList.push(this.getContactInputsContent)
+        contacts.push(contactInputsContent)
 
-        localStorage.setItem('contactsList', JSON.stringify(contactsList))
+        localStorage.setItem('contactsList', JSON.stringify(contacts))
       }
 
       this.openAddContactModal({ open: false, operation: ''})
@@ -160,8 +163,8 @@ export default {
 
       const newContactsList = oldContactsListJson.filter( contact => contact.id !== id)
 
-      constnewContactsListString = JSON.stringify(newContactsList )
-      localStorage.setItem('contactsList', constnewContactsListString)
+      const newContactsListString = JSON.stringify(newContactsList)
+      localStorage.setItem('contactsList', newContactsListString)
     }
   }
 }

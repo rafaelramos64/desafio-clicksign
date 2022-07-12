@@ -1,6 +1,6 @@
 <template>
   <div class="pa-4">
-    <list-contacts v-if="getContacts" />
+    <list-contacts v-if="getContacts.length > 0" />
     
     <v-container v-else class="home">
       <v-row justify="center" align="center">
