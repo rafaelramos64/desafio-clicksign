@@ -8,7 +8,11 @@ export const state = () => ({
     email: '' ,
     phoneNumber: '' ,
   },
-  openAddContactModal: false,
+  openAddContactModal: {
+    open: false,
+    operation: '',
+    contactId: 0,
+  },
   contacts: [],
 })
 

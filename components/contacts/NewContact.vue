@@ -29,7 +29,7 @@
                 depressed
                 rounded
                 text
-                @click.prevent="openAddContactModal(false)"
+                @click.prevent="openAddContactModal({ open: false, operation: ''})"
               >
                 Cancelar
               </v-btn>
@@ -53,6 +53,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  name: 'new-contact',
   data () {
     return {
       inputs: [
@@ -79,22 +80,22 @@ export default {
     ...mapActions(['openAddContactModal']),
 
     saveContact () {
-      if (localStorage.listContacts) {
-        const oldListContacts = localStorage.getItem('listContacts')
-        const oldListContactsJson = JSON.parse(oldListContacts)
+      if (localStorage.contactsList) {
+        const oldContactsList = localStorage.getItem('contactsList')
+        const oldContactsListJson = JSON.parse(oldContactsList)
 
-        oldListContactsJson.push(this.getContactInputsContent)
+        oldContactsListJson.push(this.getContactInputsContent)
 
-        const listContactsString = JSON.stringify(oldListContactsJson )
+        const contactsListString = JSON.stringify(oldContactsListJson )
 
-        localStorage.setItem('listContacts', listContactsString)
+        localStorage.setItem('contactsList', contactsListString)
 
       } else {
-        const listContacts = []
+        const contactsList = []
         
-        listContacts.push(this.getContactInputsContent)
+        contactsList.push(this.getContactInputsContent)
 
-        localStorage.setItem('listContacts', JSON.stringify(listContacts))
+        localStorage.setItem('contactsList', JSON.stringify(contactsList))
       }
     }
   }

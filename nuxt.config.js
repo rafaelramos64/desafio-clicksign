@@ -29,6 +29,7 @@ export default {
       '~/components',
       '~/components/app',
       '~/components/contacts',
+      '~/components/utils',
     ]
   },
 

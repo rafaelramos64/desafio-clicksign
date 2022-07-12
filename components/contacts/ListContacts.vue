@@ -1,10 +1,9 @@
 <template>
-  <v-container fluid class="">
+  <v-container fluid >
     <v-row>
       <v-col cols="12" class="pa-0">
         <v-simple-table
           fixed-header
-          height="300px"
           class="table"
         >
           <template v-slot:default>
@@ -31,28 +30,39 @@
                 :key="index"
                 class="table__tr"
               >
-                <td class="table__td px-2">
+                <td class="table__td pl-2">
                   <v-btn
                     icon
                     height="24px"
                     width="24px"
-                    class="mr-4 text-uppercase table__contact-button d-inline-flex align-center"
+                    class="mr-xs-2 mr-sm-4 text-uppercase table__contact-button d-inline-flex align-center"
                     :style="`background-color: ${contactColors[index]}`"
                   >
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
-                  <span class="text-capitalize">{{ contact.name }}</span>
+
+                  <span class="text-capitalize">{{ contact.name }} {{ index }}</span>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
                 <td class="table__td">{{ contact.phoneNumber }}</td>
 
-                <td class="d-flex justify-end">
-                  <v-btn icon color="primary" @click.prevent="editContact()">
+                <td class="d-flex justify-end align-center">
+                  <v-btn
+                    class="table__icon"
+                    icon
+                    color="primary"
+                    @click.prevent="editContact()"
+                  >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
 
-                  <v-btn icon color="primary" @click.prevent="deleteContact()">
+                  <v-btn
+                    class="table__icon"
+                    icon
+                    color="primary"
+                    @click.prevent="removeContact(index)"
+                  >
                     <img width="16px" height="16px" src="@/assets/images/ic-delete@2x.png" alt="Delete Icon">
                   </v-btn>
                 </td>
@@ -66,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'lit-contacts',
@@ -85,6 +95,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['openAddContactModal']),
 
     getContactColors () {
       const colors = [
@@ -101,7 +112,15 @@ export default {
       for (let index = 0; index < 30; index++) {
         this.contactColors.push(...colors)
       }
-    }
+    },
+
+    editContact () {
+
+    },
+
+    removeContact (index) {
+      this.openAddContactModal({ open: true, operation: 'delete', contactId: index })
+    },
   }
 }
 </script>
@@ -144,6 +163,12 @@ export default {
   &__contact-letter {
     margin-top: 1px;
     margin-right: 1px;
+  }
+
+  &__icon:hover {
+    transform: scale(1.1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
   }
 }
 </style>

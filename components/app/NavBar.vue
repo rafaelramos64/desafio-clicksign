@@ -3,6 +3,8 @@
     <v-btn to="/" text color="transparent" class="pa-0">
       <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
     </v-btn>
+
+    <create-contact-button v-if="getContacts.length > 0" :block="$vuetify.breakpoint.xs" />
   
     <div class="navbar__input-container">
       <input
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'NavBar',
 
@@ -31,6 +35,10 @@ export default {
     return {
       focusedSearchIcon: false,
     }
+  },
+
+  computed: {
+    ...mapGetters(['getContacts']),
   },
 
   methods: {
