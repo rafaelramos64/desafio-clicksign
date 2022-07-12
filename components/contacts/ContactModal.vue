@@ -24,7 +24,7 @@
               </div>
 
               <div v-else-if="operation === 'delete'" class="central-content__delete">
-                {{ centralContent[0] }}
+                <span class="ml-2">{{ centralContent[0] }}</span>
               </div>
             </div>
 
@@ -46,7 +46,7 @@
               </v-btn>
               <v-btn
                 class="container-buttons__save-button"
-                :class="{ 'container__save-button--disabled': verifyEmptyInputs }"
+                :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create'}"
                 :type="secondButton.type"
                 color="primary"
                 @click="saveContact()"
@@ -156,7 +156,9 @@ export default {
       Também diminui em 2px os margins de cada inpu para tornar o layout mais fidedigno possível, visualmente falando */
 
     /* height: 342px; */
-    height: 350px;
+    min-height: 207px;
+    max-height: 350px;
+    padding: 1rem;
     border-radius: 16px;
     box-shadow: 0 16px 10px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
@@ -187,6 +189,8 @@ export default {
   &__delete {
     font-size: 0.875rem;
     color: $dark;
+    margin-top: 0.5px;
+    padding-bottom: 57px;
   }
 }
 
