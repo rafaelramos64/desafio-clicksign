@@ -13,6 +13,7 @@ export default {
   changeStatusAddContactModal (state, payload) {
     state.openAddContactModal.open = payload.open
     state.openAddContactModal.operation = payload.operation
+    state.openAddContactModal.contactId = payload.contactId || undefined
   },
   
   changeContacts (state, payload) {

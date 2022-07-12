@@ -61,7 +61,7 @@
                     class="table__icon"
                     icon
                     color="primary"
-                    @click.prevent="openAddContactModal({ open: true, operation: 'delete'})"
+                    @click.prevent="removeContact(index)"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-delete@2x.png" alt="Delete Icon">
                   </v-btn>
@@ -112,6 +112,14 @@ export default {
       for (let index = 0; index < 30; index++) {
         this.contactColors.push(...colors)
       }
+    },
+
+    editContact () {
+
+    },
+
+    removeContact (index) {
+      this.openAddContactModal({ open: true, operation: 'delete', contactId: index })
     },
   }
 }

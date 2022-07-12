@@ -49,7 +49,7 @@
                 :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create'}"
                 :type="secondButton.type"
                 color="primary"
-                @click.prevent="saveContact()"
+                @click.prevent="actionForContact(operation)"
               >
                 {{ secondButton.text }}
               </v-btn>
@@ -102,7 +102,7 @@ export default {
   },
 
    computed: {
-    ...mapGetters(['getContactInputsContent']),
+    ...mapGetters(['getContactInputsContent', 'openAddContactModal']),
 
     verifyEmptyInputs () {
       const values = Object.values(this.getContactInputsContent)
@@ -115,27 +115,53 @@ export default {
   methods: {
     ...mapActions(['openAddContactModal', 'clearContactInputsContent']),
 
-    saveContact () {
-      if (localStorage.listContacts) {
-        const oldListContacts = localStorage.getItem('listContacts')
-        const oldListContactsJson = JSON.parse(oldListContacts)
+    actionForContact (operation) {
+      switch (operation) {
+        case 'create':
+          this.createContact()
 
-        oldListContactsJson.push(this.getContactInputsContent)
+        case 'edit':
 
-        const listContactsString = JSON.stringify(oldListContactsJson )
+        case 'delete':
+          this.deleteContact (this.openAddContactModal.contactId)
+      }
+    },
 
-        localStorage.setItem('listContacts', listContactsString)
+    createContact () {
+      if (localStorage.contactsList) {
+        const oldContactsList = localStorage.getItem('contactsList')
+        const oldContactsListJson = JSON.parse(oldContactsList)
+
+        oldContactsListJson.push(this.getContactInputsContent)
+
+        const contactsListString = JSON.stringify(oldContactsListJson )
+
+        localStorage.setItem('contactsList', contactsListString)
 
       } else {
-        const listContacts = []
+        const contactsList = []
         
-        listContacts.push(this.getContactInputsContent)
+        contactsList.push(this.getContactInputsContent)
 
-        localStorage.setItem('listContacts', JSON.stringify(listContacts))
+        localStorage.setItem('contactsList', JSON.stringify(contactsList))
       }
 
       this.openAddContactModal({ open: false, operation: ''})
       this.clearContactInputsContent()
+    },
+
+    editContact () {
+
+    },
+
+    deleteContact (id) {
+      const oldContactsList = localStorage.getItem('contactsList')
+      const oldContactsListJson = JSON.parse(oldContactsList)
+
+      const newContactsList = oldContactsListJson.filter( contact => contact.id !== id)
+
+      constnewContactsListString = JSON.stringify(newContactsList )
+      localStorage.setItem('contactsList', constnewContactsListString)
     }
   }
 }

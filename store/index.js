@@ -11,6 +11,7 @@ export const state = () => ({
   openAddContactModal: {
     open: false,
     operation: '',
+    contactId: undefined,
   },
   contacts: [],
 })
