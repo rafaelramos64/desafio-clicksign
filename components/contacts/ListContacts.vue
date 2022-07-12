@@ -52,7 +52,7 @@
                     class="table__icon"
                     icon
                     color="primary"
-                    @click.prevent="editContact()"
+                    @click.prevent="editContact(index)"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
@@ -123,8 +123,8 @@ export default {
       return firstName + ' ' + lastName
     },
 
-    editContact () {
-
+    editContact (index) {
+      this.openAddContactModal({ open: true, operation: 'edit', contactId: index })
     },
 
     removeContact (index) {

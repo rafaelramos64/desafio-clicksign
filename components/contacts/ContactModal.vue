@@ -9,11 +9,12 @@
             <hr class="container__divisor1">
             
             <div class="central-content">
-              <div v-if="operation === 'create'">
+              <div v-if="operation === 'create' || operation === 'edit'">
                 <form-input
                   v-for="(input, index) in centralContent"
                   :key="index"
-
+                  
+                  :value="getContactById[index]"
                   :label="input.label"
                   :inputType="input.inputType"
                   :width="input.width"
@@ -102,7 +103,7 @@ export default {
   },
 
    computed: {
-    ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal']),
+    ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal', 'getContactById']),
 
     verifyEmptyInputs () {
       const values = Object.values(this.getContactInputsContent)
