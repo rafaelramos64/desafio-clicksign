@@ -41,7 +41,7 @@
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
 
-                  <span class="text-capitalize">{{ contact.name }} {{ index }}</span>
+                  <span class="text-capitalize">{{ getNameSurname(contact.name) }}</span>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
@@ -52,7 +52,7 @@
                     class="table__icon"
                     icon
                     color="primary"
-                    @click.prevent="editContact()"
+                    @click.prevent="editContact(index)"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
@@ -114,8 +114,17 @@ export default {
       }
     },
 
-    editContact () {
+    getNameSurname (fullName) {
+      const fullNameSplited = fullName.split(' ')
 
+      const firstName = fullNameSplited[0]
+      const lastName = fullNameSplited[fullNameSplited.length - 1]
+
+      return firstName + ' ' + lastName
+    },
+
+    editContact (index) {
+      this.openAddContactModal({ open: true, operation: 'edit', contactId: index })
     },
 
     removeContact (index) {

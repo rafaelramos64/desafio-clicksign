@@ -7,6 +7,7 @@
       class="field__input"
       :style="`width: ${width}; height: ${height};`"
       :type="inputType"
+      :value="value"
       v-model="typedContent"
     />
   </div>
@@ -18,6 +19,10 @@ import { mapActions } from 'vuex'
 export default {
   name: 'form-input',
   props: {
+    value: {
+      type: String,
+      default: ''
+    },
     label: {
       type: String,
       default: '',
@@ -46,13 +51,16 @@ export default {
 
   data () {
     return {
-      typedContent: '',
+      typedContent: this.value || '',
     }
   },
 
   watch: {
-    typedContent () {
-      this.addContactInputsContent({ typedContent: this.typedContent , inputId: this.input})
+    typedContent: {
+      handler () {
+        this.addContactInputsContent({ typedContent: this.typedContent , inputId: this.input})
+      },  
+      immediate: true
     }
   },
 

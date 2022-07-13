@@ -22,7 +22,9 @@
     />
 
      <contact-modal
-      v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'edit'" 
+      v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'edit'"
+      :operation="getOpenAddContactModal.operation" 
+      title="Editar contato"
       :centralContent="inputs" 
     />
 

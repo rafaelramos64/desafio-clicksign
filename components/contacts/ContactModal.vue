@@ -9,11 +9,12 @@
             <hr class="container__divisor1">
             
             <div class="central-content">
-              <div v-if="operation === 'create'">
+              <div v-if="operation === 'create' || operation === 'edit'">
                 <form-input
                   v-for="(input, index) in centralContent"
                   :key="index"
-
+                  
+                  :value="operation === 'edit' ? getContactById[index] : ''"
                   :label="input.label"
                   :inputType="input.inputType"
                   :width="input.width"
@@ -28,8 +29,6 @@
               </div>
             </div>
 
-            
-
             <hr class="container__divisor2">
 
             <div class="d-flex justify-end container-buttons">
@@ -40,7 +39,7 @@
                 depressed
                 rounded
                 text
-                @click.prevent="openAddContactModal({ open: false, operation: ''})"
+                @click.prevent="cancelOperation()"
               >
                 {{ firstButton.text }}
               </v-btn>
@@ -102,7 +101,7 @@ export default {
   },
 
    computed: {
-    ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal']),
+    ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal', 'getContactById']),
 
     verifyEmptyInputs () {
       const values = Object.values(this.getContactInputsContent)
@@ -115,6 +114,11 @@ export default {
   methods: {
     ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts',]),
 
+    cancelOperation () {
+      this.clearContactInputsContent()
+      this.openAddContactModal({ open: false })
+    },
+
     actionForContact (operation) {
       switch (operation) {
         case 'create':
@@ -122,6 +126,7 @@ export default {
           break
 
         case 'edit':
+          this.editContact(this.getContactInputsContent, this.getOpenAddContactModal.contactId)
           break
 
         case 'delete':
@@ -129,8 +134,9 @@ export default {
           break
       }
       
-      this.openAddContactModal({ open: false, operation: ''})
+      this.openAddContactModal({ open: false })
       this.searchContacts()
+      this.clearContactInputsContent()
     },
 
     createContact (contactInputsContent) {
@@ -151,22 +157,21 @@ export default {
 
         localStorage.setItem('contactsList', JSON.stringify(contacts))
       }
-
-      this.clearContactInputsContent()
     },
 
-    editContact () {
-
+    editContact (contactInputsContent, contactId) {
+      this.createContact(contactInputsContent)
+      this.deleteContact(contactId)
     },
 
-    deleteContact (id) {
+    deleteContact (contactId) {
       const oldContactsList = localStorage.getItem('contactsList')
 
       const oldContactsListJson = JSON.parse(oldContactsList)
       
       /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
         Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
-      const contactListDeleted = oldContactsListJson.splice(id, 1)
+      const contactListDeleted = oldContactsListJson.splice(contactId, 1)
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 
