@@ -118,7 +118,8 @@ export default {
       const fullNameSplited = fullName.split(' ')
 
       const firstName = fullNameSplited[0]
-      const lastName = fullNameSplited[fullNameSplited.length - 1]
+      const lastName = fullNameSplited.length > 1 ? 
+        fullNameSplited[fullNameSplited.length - 1] : ''
 
       return firstName + ' ' + lastName
     },
