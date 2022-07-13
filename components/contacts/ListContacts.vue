@@ -32,14 +32,14 @@
                 :class="{ 'table__new-contact': contact.newContact }"
               >
                 <td class="table__td pl-2">
-                  <v-btn 
+                  <v-btn
                     icon
                     height="24px"
                     width="24px"
                     class="mr-xs-2 mr-sm-4 text-uppercase table__contact-button d-inline-flex align-center"
                     :style="`background-color: ${contactColors[index]}`"
                   >
-                    <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
+                    <span class="table__contact-letter">{{ getFirstCharacter(contact.name) }}</span>
                   </v-btn>
 
                   <v-tooltip top color="primary">
@@ -98,11 +98,17 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getContacts'])
+    ...mapGetters(['getContacts', 'getContactsLength'])
+  },
+
+  watch: {
+    getContactsLength () {
+      this.removeContactFocus()
+    }
   },
 
   methods: {
-    ...mapActions(['openAddContactModal']),
+    ...mapActions(['openAddContactModal', 'searchContacts']),
 
     getContactColors () {
       const colors = [
@@ -121,6 +127,10 @@ export default {
       }
     },
 
+    getFirstCharacter (name) {
+      return name.charAt(0)
+    },
+
     getNameSurname (fullName) {
       const fullNameSplited = fullName.split(' ')
 
@@ -137,6 +147,26 @@ export default {
 
     removeContact (index) {
       this.openAddContactModal({ open: true, operation: 'delete', contactId: index })
+    },
+
+    removeContactFocus () {
+
+      let contactsList = JSON.parse(localStorage.contactsList || '[]')
+      
+      setTimeout(() => {
+        if (contactsList.length > 0) {
+          contactsList = contactsList.map( contact => {
+            if (contact.newContact == true) contact.newContact = false
+      
+            return contact
+          })
+        }
+
+        localStorage.setItem('contactsList', JSON.stringify(contactsList))
+
+        this.searchContacts()
+
+      }, 10000)
     },
   }
 }

@@ -136,9 +136,9 @@ export default {
           break
       }
       
-      this.openAddContactModal({ open: false })
       this.searchContacts()
       this.clearContactInputsContent()
+      this.openAddContactModal({ open: false })
     },
 
     createContact (contactInputsContent) {
@@ -155,7 +155,8 @@ export default {
 
       } else {
         const contacts = []
-        
+
+        contactInputsContent['newContact'] = true
         contacts.push(contactInputsContent)
 
         localStorage.setItem('contactsList', JSON.stringify(contacts))
