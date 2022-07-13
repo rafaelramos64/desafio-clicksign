@@ -35,8 +35,6 @@
       :secondButton="{ buttonType: 'delete', text: 'Excluir' }"
       :centralContent="['Deseja realmente excluir o contato?']"
     />
-    
-    <!-- <new-contact v-if="getOpenAddContactModal" /> -->
   </div>
 </template>
 
