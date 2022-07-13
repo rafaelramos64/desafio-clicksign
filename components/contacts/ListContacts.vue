@@ -31,7 +31,7 @@
                 class="table__tr"
               >
                 <td class="table__td pl-2">
-                  <v-btn
+                  <v-btn 
                     icon
                     height="24px"
                     width="24px"
@@ -41,7 +41,13 @@
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
 
-                  <span>{{ getNameSurname(contact.name) }}</span>
+                  <v-tooltip top color="primary">
+                    <template v-slot:activator="{ on, attrs }">
+                      <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }}</span>
+                    </template>
+
+                    <span>{{ contact.name }}</span>
+                  </v-tooltip>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
