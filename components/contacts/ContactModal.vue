@@ -45,7 +45,7 @@
               </v-btn>
               <v-btn
                 class="container-buttons__save-button"
-                :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create'}"
+                :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create' }"
                 :type="secondButton.type"
                 color="primary"
                 @click.prevent="actionForContact(operation)"

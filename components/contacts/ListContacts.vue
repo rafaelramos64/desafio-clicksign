@@ -41,7 +41,7 @@
                     <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
                   </v-btn>
 
-                  <span class="text-capitalize">{{ getNameSurname(contact.name) }}</span>
+                  <span>{{ getNameSurname(contact.name) }}</span>
                 </td>
 
                 <td class="table__td">{{ contact.email }}</td>
