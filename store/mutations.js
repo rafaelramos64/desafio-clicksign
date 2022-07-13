@@ -1,7 +1,13 @@
+const capitalize = require('capitalize-pt-br')
+
 export default {
   
   changeContactInputsContent (state, payload) {
-    state.contactInputsContent[payload.inputId] = payload.typedContent
+    if (payload.inputId === 'name') {
+      state.contactInputsContent[payload.inputId] = capitalize(payload.typedContent)
+    } else {
+      state.contactInputsContent[payload.inputId] = payload.typedContent
+    }
   },
 
   clearContactInputsContent (state) {

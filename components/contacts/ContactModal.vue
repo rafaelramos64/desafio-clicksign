@@ -45,7 +45,7 @@
               </v-btn>
               <v-btn
                 class="container-buttons__save-button"
-                :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create'}"
+                :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create' }"
                 :type="secondButton.type"
                 color="primary"
                 @click.prevent="actionForContact(operation)"
@@ -100,7 +100,7 @@ export default {
     }
   },
 
-   computed: {
+  computed: {
     ...mapGetters(['getContactInputsContent', 'getOpenAddContactModal', 'getContactById']),
 
     verifyEmptyInputs () {
@@ -146,7 +146,9 @@ export default {
 
         oldContactsListJson.push(contactInputsContent)
 
-        const contactsListString = JSON.stringify(oldContactsListJson )
+        const newSortedContactsList = this.sortContacts(oldContactsListJson)
+
+        const contactsListString = JSON.stringify(newSortedContactsList )
 
         localStorage.setItem('contactsList', contactsListString)
 
@@ -175,10 +177,20 @@ export default {
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 
-      const newContactsList = oldContactsListJson
+      const newSortedContactsList = this.sortContacts(oldContactsListJson)
 
-      localStorage.setItem('contactsList', JSON.stringify(newContactsList))
-    }
+      localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
+    },
+
+    sortContacts (contacsToSort) {
+      const contactsSorted = contacsToSort.sort((x,y) => {
+        let a = x.name.toUpperCase(),
+            b = y.name.toUpperCase()
+        return a === b ? 0 : a > b ? 1 : -1
+      })
+
+      return contactsSorted
+    },
   }
 }
 </script>
