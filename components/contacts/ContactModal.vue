@@ -14,13 +14,14 @@
                   v-for="(input, index) in centralContent"
                   :key="index"
                   
-                  :value="operation === 'edit' ? getContactById[index] : ''"
+                  :id="input.index"
                   :label="input.label"
                   :inputType="input.inputType"
                   :width="input.width"
                   :height="input.height"
                   :input="input.input"
-                  :id="input.index"
+                  :autofocus="input.autofocus"
+                  :value="operation === 'edit' ? getContactById[index] : ''"
                 />
               </div>
 
@@ -145,11 +146,10 @@ export default {
       if (localStorage.contactsList) {
         contactInputsContent['newContact'] = true
 
-        this.currentContactsList.push(contactInputsContent)
+        // Adiciona o item na posição 0 do array substituindo 0 elementos
+        this.currentContactsList.splice(0, 0, contactInputsContent)
 
-        const newSortedContactsList = this.sortContacts(this.currentContactsList)
-
-        const contactsListString = JSON.stringify(newSortedContactsList )
+        const contactsListString = JSON.stringify(this.currentContactsList )
 
         localStorage.setItem('contactsList', contactsListString)
 
@@ -164,15 +164,9 @@ export default {
     },
 
     editContact (contactInputsContent, contactId) {
-      contactInputsContent['newContact'] = true
       this.currentContactsList[contactId] = contactInputsContent
 
-      const newSortedContactsList = this.sortContacts(this.currentContactsList)
-
-      localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
-
-      /* this.deleteContact(contactId)
-      this.createContact(contactInputsContent) */
+      localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
 
     deleteContact (contactId) {
@@ -182,19 +176,7 @@ export default {
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 
-      const newSortedContactsList = this.sortContacts(this.currentContactsList)
-
-      localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
-    },
-
-    sortContacts (contacsToSort) {
-      const contactsSorted = contacsToSort.sort((x,y) => {
-        let a = x.name.toUpperCase(),
-            b = y.name.toUpperCase()
-        return a === b ? 0 : a > b ? 1 : -1
-      })
-
-      return contactsSorted
+      localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
   }
 }

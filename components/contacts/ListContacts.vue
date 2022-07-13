@@ -162,11 +162,23 @@ export default {
           })
         }
 
-        localStorage.setItem('contactsList', JSON.stringify(contactsList))
+        const sortedContactsList = this.sortContacts(contactsList)
+
+        localStorage.setItem('contactsList', JSON.stringify(sortedContactsList))
 
         this.searchContacts()
 
       }, 10000)
+    },
+
+    sortContacts (contacsToSort) {
+      const contactsSorted = contacsToSort.sort((x,y) => {
+        let a = x.name.toUpperCase(),
+            b = y.name.toUpperCase()
+        return a === b ? 0 : a > b ? 1 : -1
+      })
+
+      return contactsSorted
     },
   }
 }
@@ -192,8 +204,14 @@ export default {
     color: $bluey-grey !important;
   }
 
-  &__tr:hover, &__new-contact {
+  &__tr:hover {
     background-color: $very-light-pink !important;
+  }
+
+  &__new-contact {
+    background-color: $very-light-pink !important;
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 2px 0.5px rgba(0, 0, 0, 0.16) !important;
   }
 
   &__td {

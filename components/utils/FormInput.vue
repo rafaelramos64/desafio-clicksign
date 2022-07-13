@@ -4,6 +4,7 @@
     <!-- <br> -->
     <input
       :id="`input${id}`"
+      :autofocus="autofocus"
       class="field__input"
       :style="`width: ${width}; height: ${height};`"
       :type="inputType"
@@ -19,6 +20,10 @@ import { mapActions } from 'vuex'
 export default {
   name: 'form-input',
   props: {
+    id: {
+      type: Number,
+      default: 0,
+    },
     value: {
       type: String,
       default: ''
@@ -43,9 +48,9 @@ export default {
       type: String,
       default: '',
     },
-    id: {
-      type: Number,
-      default: 0,
+    autofocus: {
+      type: Boolean,
+      default: false,
     }
   },
 
