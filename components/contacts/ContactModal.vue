@@ -94,9 +94,11 @@ export default {
       }
     },
   },
+
   data () {
     return {
       emptyInputs: true,
+      currentContactsList: JSON.parse(localStorage.getItem('contactsList')),
     }
   },
 
@@ -141,12 +143,11 @@ export default {
 
     createContact (contactInputsContent) {
       if (localStorage.contactsList) {
-        const oldContactsList = localStorage.getItem('contactsList')
-        const oldContactsListJson = JSON.parse(oldContactsList)
+        contactInputsContent['newContact'] = true
 
-        oldContactsListJson.push(contactInputsContent)
+        this.currentContactsList.push(contactInputsContent)
 
-        const newSortedContactsList = this.sortContacts(oldContactsListJson)
+        const newSortedContactsList = this.sortContacts(this.currentContactsList)
 
         const contactsListString = JSON.stringify(newSortedContactsList )
 
@@ -162,22 +163,25 @@ export default {
     },
 
     editContact (contactInputsContent, contactId) {
-      this.createContact(contactInputsContent)
-      this.deleteContact(contactId)
+      contactInputsContent['newContact'] = true
+      this.currentContactsList[contactId] = contactInputsContent
+
+      const newSortedContactsList = this.sortContacts(this.currentContactsList)
+
+      localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
+
+      /* this.deleteContact(contactId)
+      this.createContact(contactInputsContent) */
     },
 
     deleteContact (contactId) {
-      const oldContactsList = localStorage.getItem('contactsList')
-
-      const oldContactsListJson = JSON.parse(oldContactsList)
-      
       /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
         Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
-      const contactListDeleted = oldContactsListJson.splice(contactId, 1)
+      const contactListDeleted = this.currentContactsList.splice(contactId, 1)
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 
-      const newSortedContactsList = this.sortContacts(oldContactsListJson)
+      const newSortedContactsList = this.sortContacts(this.currentContactsList)
 
       localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
     },

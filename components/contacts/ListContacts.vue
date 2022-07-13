@@ -29,6 +29,7 @@
                 v-for="(contact, index) in getContacts"
                 :key="index"
                 class="table__tr"
+                :class="{ 'table__new-contact': contact.newContact }"
               >
                 <td class="table__td pl-2">
                   <v-btn 
@@ -161,7 +162,7 @@ export default {
     color: $bluey-grey !important;
   }
 
-  &__tr:hover {
+  &__tr:hover, &__new-contact {
     background-color: $very-light-pink !important;
   }
 
