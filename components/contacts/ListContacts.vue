@@ -26,7 +26,7 @@
 
             <tbody>
               <tr
-                v-for="(contact, index) in getContacts"
+                v-for="(contact, index) in getFoundContacts || getContacts"
                 :key="index"
                 class="table__tr"
                 :class="{ 'table__new-contact': contact.newContact }"
@@ -98,7 +98,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength'])
+    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength', 'getFoundContacts',])
   },
 
   watch: {

@@ -14,6 +14,7 @@ export const state = () => ({
     contactId: 0,
   },
   contacts: [],
+  foundContacts: [],
 })
 
 export default {

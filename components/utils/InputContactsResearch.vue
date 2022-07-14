@@ -7,6 +7,7 @@
       autocomplete="off"
       @click="getFocus(true)"
       @blur="getFocus(false)"
+      v-model="contactsResearch"
     />
     
     <v-icon
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'input-contacts-research',
@@ -27,14 +29,50 @@ export default {
       focusedSearchIcon: false,
       contactsResearch: '',
       searchContactsCorrect: '',
-      contactsFound: [],
+      foundContacts: [],
+    }
+  },
+
+  computed: {
+    ...mapGetters(['getContacts']),
+  },
+
+  watch: {
+    contactsResearch () {
+      this.filterContacts()
+    },
+
+    foundContacts () {
+      this.searchFoundContacts(this.foundContacts)
     }
   },
 
   methods: {
+    ...mapActions(['searchFoundContacts']),
+
     getFocus (focus) {
       this.focusedSearchIcon = focus
-    }
+    },
+
+    filterContacts () {
+      if (this.contactsResearch) {
+        this.searchContactsCorrect = this.removeAccent(this.contactsResearch)
+        this.searchContactByName()
+      }
+    },
+
+    removeAccent (currentString) {
+      return currentString
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+    },
+
+    searchContactByName () {
+      this.foundContacts = this.getContacts.filter(contacts => {
+        return this.removeAccent(contacts.name).includes(this.searchContactsCorrect)
+      })
+    },
   }
 }
 </script>
