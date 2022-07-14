@@ -3,7 +3,7 @@
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="4" class="pa-0 ma-0">
         <div class="container__contact-card pt-4 px-4">
-          <v-form @submit.prevent="saveContact()">
+          <v-form @submit="actionForContact(operation)">
             <span class="container__title">{{ title }}</span>
 
             <hr class="container__divisor1">
@@ -22,6 +22,8 @@
                   :input="input.input"
                   :autofocus="input.autofocus"
                   :value="operation === 'edit' ? getContactById[index] : ''"
+                  :required="input.required"
+                  :mask="input.mask"
                 />
               </div>
 
@@ -35,7 +37,7 @@
             <div class="d-flex justify-end container-buttons">
               <v-btn
                 class="container-buttons__cancel-button mr-4"
-                :type="firstButton.type"
+                :type="firstButton.buttonType"
                 color="primary"
                 depressed
                 rounded
@@ -47,10 +49,10 @@
               <v-btn
                 class="container-buttons__save-button"
                 :class="{ 'container-buttons__save-button--disabled': verifyEmptyInputs && operation == 'create' }"
-                :type="secondButton.type"
+                type="submit"
                 color="primary"
-                @click.prevent="actionForContact(operation)"
               >
+                <!-- @click.prevent="actionForContact(operation)" -->
                 {{ secondButton.text }}
               </v-btn>
             </div>

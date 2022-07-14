@@ -2,15 +2,19 @@
   <div class="field px-2">
     <label class="field__label d-flex flex-column" :for="`input${id}`" >{{ label }}</label>
     <!-- <br> -->
-    <input
+    <v-text-field
       :id="`input${id}`"
       :autofocus="autofocus"
       :style="`width: ${width}; height: ${height};`"
-      :type="inputType"
       :value="value"
+      :required="required"
+      :type="inputType"
       class="field__input"
       v-model="typedContent"
       autocomplete="off"
+      dense
+      outlined
+      v-mask="mask"
     />
   </div>
 </template>
@@ -35,7 +39,6 @@ export default {
     },
     inputType: {
       type: String,
-      default: 'text',
     },
     width: {
       type: String,
@@ -52,7 +55,14 @@ export default {
     autofocus: {
       type: Boolean,
       default: false,
-    }
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
+    mask: {
+      type: String,
+    },
   },
 
   data () {
@@ -87,8 +97,6 @@ export default {
 
   &__input {
     border-radius: 4px;
-    border: solid 1px $divisor;
-    padding-left: 5px;
     margin-bottom: 14px;
 
     &:focus-visible {
