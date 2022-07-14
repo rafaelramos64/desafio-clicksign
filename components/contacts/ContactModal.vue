@@ -142,9 +142,19 @@ export default {
       this.openAddContactModal({ open: false, operation: this.operation })
     },
 
+    setId (currentContactsList, currentId) {
+      if (!!currentContactsList.find(contact => contact.id == currentId)) {
+        currentId++
+        this.setId(currentContactsList, currentId)
+      }
+
+      return currentId
+    },
+
     createContact (contactInputsContent) {
       if (localStorage.contactsList) {
         contactInputsContent['newContact'] = true
+        contactInputsContent['id'] = this.setId( this.currentContactsList, this.currentContactsList.length)
 
         // Adiciona o item na posição 0 do array substituindo 0 elementos
         this.currentContactsList.splice(0, 0, contactInputsContent)
@@ -157,22 +167,30 @@ export default {
         const contacts = []
 
         contactInputsContent['newContact'] = true
+        contactInputsContent['id'] = 0
+
         contacts.push(contactInputsContent)
 
         localStorage.setItem('contactsList', JSON.stringify(contacts))
       }
     },
 
+
     editContact (contactInputsContent, contactId) {
-      this.currentContactsList[contactId] = contactInputsContent
+      let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
+
+      this.currentContactsList[contactIndex] = contactInputsContent
 
       localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
 
     deleteContact (contactId) {
+      let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
+
       /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
         Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
-      const contactListDeleted = this.currentContactsList.splice(contactId, 1)
+      const contactListDeleted = this.currentContactsList.splice(contactIndex, 1)
+
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 

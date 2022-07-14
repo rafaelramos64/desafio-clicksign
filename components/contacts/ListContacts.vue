@@ -26,7 +26,7 @@
 
             <tbody>
               <tr
-                v-for="(contact, index) in getFoundContacts || getContacts"
+                v-for="(contact, index) in getContacts"
                 :key="index"
                 class="table__tr"
                 :class="{ 'table__new-contact': contact.newContact }"
@@ -47,7 +47,7 @@
                       <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }}</span>
                     </template>
 
-                    <span>{{ contact.name }}</span>
+                    <span>{{ contact.name }} {{contact.id}}</span>
                   </v-tooltip>
                 </td>
 
@@ -59,7 +59,7 @@
                     class="table__icon"
                     icon
                     color="primary"
-                    @click.prevent="editContact(index)"
+                    @click.prevent="editContact(contact.id)"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
@@ -68,7 +68,7 @@
                     class="table__icon"
                     icon
                     color="primary"
-                    @click.prevent="removeContact(index)"
+                    @click.prevent="removeContact(contact.id)"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-delete@2x.png" alt="Delete Icon">
                   </v-btn>
@@ -98,12 +98,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength', 'getFoundContacts',])
+    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength', 'getFoundContacts',]),
+
+    getContactsList () {
+      return this.getFoundContacts.length > 0 ? this.getFoundContacts : this.getContacts
+    },
   },
 
   watch: {
-    getContactsLength () {
-      if (this.getOpenAddContactModal.operation === 'create') this.removeContactFocus()
+    getContactsLength: {
+      handler () {
+        if (this.getOpenAddContactModal.operation === 'create') this.removeContactFocus()
+      },
+      immediate: true,
     }
   },
 
@@ -141,12 +148,12 @@ export default {
       return firstName + ' ' + lastName
     },
 
-    editContact (index) {
-      this.openAddContactModal({ open: true, operation: 'edit', contactId: index })
+    editContact (id) {
+      this.openAddContactModal({ open: true, operation: 'edit', contactId: id })
     },
 
-    removeContact (index) {
-      this.openAddContactModal({ open: true, operation: 'delete', contactId: index })
+    removeContact (id) {
+      this.openAddContactModal({ open: true, operation: 'delete', contactId: id })
     },
 
     removeContactFocus () {
