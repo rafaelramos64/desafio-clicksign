@@ -21,14 +21,14 @@
       :centralContent="inputs" 
     />
 
-     <contact-modal
+    <contact-modal
       v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'edit'"
       :operation="getOpenAddContactModal.operation" 
       title="Editar contato"
       :centralContent="inputs" 
     />
 
-     <contact-modal
+    <contact-modal
       v-if="getOpenAddContactModal.open && getOpenAddContactModal.operation === 'delete'" 
       :operation="getOpenAddContactModal.operation"
       title="Excluir contato"
@@ -45,10 +45,11 @@ export default {
   name: 'Home',
   data () {
     return {
+      a: '',
       inputs: [
-        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', autofocus: true},
+        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', autofocus: true, required: true },
         { label: 'E-mail', input: 'email', inputType: 'email',  width: '100%', height: '32px', },
-        { label: 'Telefone', input: 'phoneNumber', inputType: 'number',  width: '128px', height: '32px', },
+        { label: 'Telefone', input: 'phoneNumber', inputType: 'text',  width: '128px', height: '32px', mask: '(##)#####-####', },
       ],
     }
   },
