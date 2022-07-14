@@ -13,6 +13,7 @@
     <v-icon
       class="input-container__search-icon"
       :color="focusedSearchIcon ? 'primary' : 'magnify' "
+      @click.prevent="filterContacts()"
     >
       mdi-magnify
     </v-icon>
