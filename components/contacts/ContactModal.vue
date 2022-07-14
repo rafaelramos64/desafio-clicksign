@@ -14,13 +14,14 @@
                   v-for="(input, index) in centralContent"
                   :key="index"
                   
-                  :value="operation === 'edit' ? getContactById[index] : ''"
+                  :id="input.index"
                   :label="input.label"
                   :inputType="input.inputType"
                   :width="input.width"
                   :height="input.height"
                   :input="input.input"
-                  :id="input.index"
+                  :autofocus="input.autofocus"
+                  :value="operation === 'edit' ? getContactById[index] : ''"
                 />
               </div>
 
@@ -94,9 +95,11 @@ export default {
       }
     },
   },
+
   data () {
     return {
       emptyInputs: true,
+      currentContactsList: JSON.parse(localStorage.getItem('contactsList')),
     }
   },
 
@@ -134,27 +137,26 @@ export default {
           break
       }
       
-      this.openAddContactModal({ open: false })
       this.searchContacts()
       this.clearContactInputsContent()
+      this.openAddContactModal({ open: false, operation: this.operation })
     },
 
     createContact (contactInputsContent) {
       if (localStorage.contactsList) {
-        const oldContactsList = localStorage.getItem('contactsList')
-        const oldContactsListJson = JSON.parse(oldContactsList)
+        contactInputsContent['newContact'] = true
 
-        oldContactsListJson.push(contactInputsContent)
+        // Adiciona o item na posição 0 do array substituindo 0 elementos
+        this.currentContactsList.splice(0, 0, contactInputsContent)
 
-        const newSortedContactsList = this.sortContacts(oldContactsListJson)
-
-        const contactsListString = JSON.stringify(newSortedContactsList )
+        const contactsListString = JSON.stringify(this.currentContactsList )
 
         localStorage.setItem('contactsList', contactsListString)
 
       } else {
         const contacts = []
-        
+
+        contactInputsContent['newContact'] = true
         contacts.push(contactInputsContent)
 
         localStorage.setItem('contactsList', JSON.stringify(contacts))
@@ -162,34 +164,19 @@ export default {
     },
 
     editContact (contactInputsContent, contactId) {
-      this.createContact(contactInputsContent)
-      this.deleteContact(contactId)
+      this.currentContactsList[contactId] = contactInputsContent
+
+      localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
 
     deleteContact (contactId) {
-      const oldContactsList = localStorage.getItem('contactsList')
-
-      const oldContactsListJson = JSON.parse(oldContactsList)
-      
       /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
         Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
-      const contactListDeleted = oldContactsListJson.splice(contactId, 1)
+      const contactListDeleted = this.currentContactsList.splice(contactId, 1)
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 
-      const newSortedContactsList = this.sortContacts(oldContactsListJson)
-
-      localStorage.setItem('contactsList', JSON.stringify(newSortedContactsList))
-    },
-
-    sortContacts (contacsToSort) {
-      const contactsSorted = contacsToSort.sort((x,y) => {
-        let a = x.name.toUpperCase(),
-            b = y.name.toUpperCase()
-        return a === b ? 0 : a > b ? 1 : -1
-      })
-
-      return contactsSorted
+      localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
   }
 }
@@ -260,7 +247,7 @@ export default {
     border-radius: 16px !important;
     padding: 0.5rem 1rem !important;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16)  !important;
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
 
     &--disabled {
       opacity: 0.32;

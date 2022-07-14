@@ -25,4 +25,5 @@ export default {
   changeContacts (state, payload) {
     state.contacts = payload
   },
+
 }
