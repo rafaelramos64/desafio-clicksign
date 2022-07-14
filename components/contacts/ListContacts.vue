@@ -27,7 +27,7 @@
             <tbody>
               <tr
                 v-for="(contact, index) in getContacts"
-                :key="index"
+                :key="contact.id"
                 class="table__tr"
                 :class="{ 'table__new-contact': contact.newContact }"
               >
@@ -37,17 +37,17 @@
                     height="24px"
                     width="24px"
                     class="mr-xs-2 mr-sm-4 text-uppercase table__contact-button d-inline-flex align-center"
-                    :style="`background-color: ${contactColors[index]}`"
+                    :style="`background-color: ${contactColorsList[index]}`"
                   >
                     <span class="table__contact-letter">{{ getFirstCharacter(contact.name) }}</span>
                   </v-btn>
 
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on, attrs }">
-                      <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }}</span>
+                      <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }} {{contact.id}}</span>
                     </template>
 
-                    <span>{{ contact.name }} {{contact.id}}</span>
+                    <span>{{ contact.name }}</span>
                   </v-tooltip>
                 </td>
 
@@ -60,6 +60,7 @@
                     icon
                     color="primary"
                     @click.prevent="editContact(contact.id)"
+                    :disabled="contact.newContact"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-edit@2x.png" alt="Edit Icon">
                   </v-btn>
@@ -69,6 +70,7 @@
                     icon
                     color="primary"
                     @click.prevent="removeContact(contact.id)"
+                    :disabled="contact.newContact"
                   >
                     <img width="16px" height="16px" src="@/assets/images/ic-delete@2x.png" alt="Delete Icon">
                   </v-btn>
@@ -89,12 +91,12 @@ export default {
   name: 'lit-contacts',
   data () {
     return {
-      contactColors: []
+      contactColorsList: [],
     }
   },
 
   created () {
-    this.getContactColors()
+    this.generateColorsList()
   },
 
   computed: {
@@ -108,16 +110,18 @@ export default {
   watch: {
     getContactsLength: {
       handler () {
-        if (this.getOpenAddContactModal.operation === 'create') this.removeContactFocus()
+        if (this.getOpenAddContactModal.operation === 'create') {
+          this.removeContactFocus()
+        }
       },
       immediate: true,
-    }
+    },
   },
 
   methods: {
     ...mapActions(['openAddContactModal', 'searchContacts']),
 
-    getContactColors () {
+    generateColorsList () {
       const colors = [
         '#fa8d68',
         '#90d26c',
@@ -130,7 +134,7 @@ export default {
       ]
 
       for (let index = 0; index < 30; index++) {
-        this.contactColors.push(...colors)
+        this.contactColorsList.push(...colors)
       }
     },
 
@@ -158,9 +162,10 @@ export default {
 
     removeContactFocus () {
       let contactsList = JSON.parse(localStorage.contactsList || '[]')
-      
+
       setTimeout(() => {
         if (contactsList.length > 0) {
+
           contactsList = contactsList.map( contact => {
             if (contact.newContact === true) contact.newContact = false
             
@@ -168,11 +173,13 @@ export default {
           })
         }
 
+
         const sortedContactsList = this.sortContacts(contactsList)
 
         localStorage.setItem('contactsList', JSON.stringify(sortedContactsList))
 
         this.searchContacts()
+        this.openAddContactModal({ open: false, operation: '' })
 
       }, 10000)
     },
@@ -236,10 +243,13 @@ export default {
     margin-right: 1px;
   }
 
-  &__icon:hover {
-    transform: scale(1.1);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
-      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
+  &__icon {
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
+    }
   }
 }
 </style>

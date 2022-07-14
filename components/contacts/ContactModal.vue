@@ -152,9 +152,12 @@ export default {
     },
 
     createContact (contactInputsContent) {
+      contactInputsContent['newContact'] = true
+
       if (localStorage.contactsList) {
-        contactInputsContent['newContact'] = true
-        contactInputsContent['id'] = this.setId( this.currentContactsList, this.currentContactsList.length)
+        const contactId = this.setId(this.currentContactsList, this.currentContactsList.length)
+        
+        contactInputsContent['id'] = contactId 
 
         // Adiciona o item na posição 0 do array substituindo 0 elementos
         this.currentContactsList.splice(0, 0, contactInputsContent)
@@ -165,19 +168,21 @@ export default {
 
       } else {
         const contacts = []
-
-        contactInputsContent['newContact'] = true
         contactInputsContent['id'] = 0
 
         contacts.push(contactInputsContent)
 
+
         localStorage.setItem('contactsList', JSON.stringify(contacts))
+
       }
     },
 
 
     editContact (contactInputsContent, contactId) {
       let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
+      contactInputsContent['id'] = contactId
+      contactInputsContent['newContact'] = false
 
       this.currentContactsList[contactIndex] = contactInputsContent
 
