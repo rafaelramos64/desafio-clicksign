@@ -5,11 +5,12 @@
     <input
       :id="`input${id}`"
       :autofocus="autofocus"
-      class="field__input"
       :style="`width: ${width}; height: ${height};`"
       :type="inputType"
       :value="value"
+      class="field__input"
       v-model="typedContent"
+      autocomplete="off"
     />
   </div>
 </template>

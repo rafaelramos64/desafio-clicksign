@@ -14,4 +14,6 @@ export default {
 
     return contactsToArray
   },
+
+  getFoundContacts: state => state.foundContacts
 }

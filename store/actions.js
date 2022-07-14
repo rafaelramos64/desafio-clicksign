@@ -13,26 +13,11 @@ export default {
   },
   
   searchContacts (context) {
-    const contactsList = JSON.parse(localStorage.contactsList || '[]')
+    context.commit('changeContacts', JSON.parse(localStorage.contactsList || '[]'))
+  },
 
-    context.commit('changeContacts', contactsList)
-
-    /* let contactsListnew = contactsList */
-
-    
-
-    /* setTimeout( async () => {
-      if (contactsListnew.length > 0) {
-        contactsListnew = contactsListnew.map( contact => {
-          if (contact.newContact == true) contact.newContact = false
-    
-          return contact
-        })
-      }
-
-      await context.commit('changeContacts', contactsListnew)
-
-      localStorage.setItem('contactsList', JSON.stringify(contactsListnew))
-    }, 10000)*/
+  searchFoundContacts (context, payload) {
+    console.log('search')
+    context.commit('changeFoundContacts', payload)
   },
 }
