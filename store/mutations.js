@@ -26,4 +26,8 @@ export default {
     state.contacts = payload
   },
 
+  changeFoundContacts (state, payload) {
+    state.foundContacts = payload
+  },
+
 }
