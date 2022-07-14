@@ -72,6 +72,7 @@ export default {
           primary: '#fa7268',
           accent: colors.grey.darken3,
           secondary:'#e4e7f4',
+          background: '#f8f9fd',
           dark: '#2a2d3b',
           light_yellowish_green: '#dbff90',
           magnify: '#9297AC',

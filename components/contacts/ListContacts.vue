@@ -214,6 +214,12 @@ export default {
 }
 
 .table {
+  max-height: 450px;
+  overflow: auto;
+  @media only screen and (min-width: 600px) {
+    max-height: 500px;
+  }
+
   &__th, &__td, &__contact-button  {
     font-size: 0.813rem !important;
     font-weight: normal !important;
