@@ -46,7 +46,7 @@ export default {
   data () {
     return {
       inputs: [
-        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', },
+        { label: 'Nome', input: 'name', inputType: 'text',  width: '100%', height: '32px', autofocus: true},
         { label: 'E-mail', input: 'email', inputType: 'email',  width: '100%', height: '32px', },
         { label: 'Telefone', input: 'phoneNumber', inputType: 'number',  width: '128px', height: '32px', },
       ],

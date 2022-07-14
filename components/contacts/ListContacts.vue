@@ -29,16 +29,17 @@
                 v-for="(contact, index) in getContacts"
                 :key="index"
                 class="table__tr"
+                :class="{ 'table__new-contact': contact.newContact }"
               >
                 <td class="table__td pl-2">
-                  <v-btn 
+                  <v-btn
                     icon
                     height="24px"
                     width="24px"
                     class="mr-xs-2 mr-sm-4 text-uppercase table__contact-button d-inline-flex align-center"
                     :style="`background-color: ${contactColors[index]}`"
                   >
-                    <span class="table__contact-letter">{{ contact.name.charAt(0) }}</span>
+                    <span class="table__contact-letter">{{ getFirstCharacter(contact.name) }}</span>
                   </v-btn>
 
                   <v-tooltip top color="primary">
@@ -97,11 +98,17 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getContacts'])
+    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength'])
+  },
+
+  watch: {
+    getContactsLength () {
+      if (this.getOpenAddContactModal.operation === 'create') this.removeContactFocus()
+    }
   },
 
   methods: {
-    ...mapActions(['openAddContactModal']),
+    ...mapActions(['openAddContactModal', 'searchContacts']),
 
     getContactColors () {
       const colors = [
@@ -120,6 +127,10 @@ export default {
       }
     },
 
+    getFirstCharacter (name) {
+      return name.charAt(0)
+    },
+
     getNameSurname (fullName) {
       const fullNameSplited = fullName.split(' ')
 
@@ -136,6 +147,37 @@ export default {
 
     removeContact (index) {
       this.openAddContactModal({ open: true, operation: 'delete', contactId: index })
+    },
+
+    removeContactFocus () {
+      let contactsList = JSON.parse(localStorage.contactsList || '[]')
+      
+      setTimeout(() => {
+        if (contactsList.length > 0) {
+          contactsList = contactsList.map( contact => {
+            if (contact.newContact === true) contact.newContact = false
+            
+            return contact
+          })
+        }
+
+        const sortedContactsList = this.sortContacts(contactsList)
+
+        localStorage.setItem('contactsList', JSON.stringify(sortedContactsList))
+
+        this.searchContacts()
+
+      }, 10000)
+    },
+
+    sortContacts (contacsToSort) {
+      const contactsSorted = contacsToSort.sort((x,y) => {
+        let a = x.name.toUpperCase(),
+            b = y.name.toUpperCase()
+        return a === b ? 0 : a > b ? 1 : -1
+      })
+
+      return contactsSorted
     },
   }
 }
@@ -163,6 +205,12 @@ export default {
 
   &__tr:hover {
     background-color: $very-light-pink !important;
+  }
+
+  &__new-contact {
+    background-color: $very-light-pink !important;
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 2px 0.5px rgba(0, 0, 0, 0.16) !important;
   }
 
   &__td {
