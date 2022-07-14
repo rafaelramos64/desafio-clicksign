@@ -1,3 +1,4 @@
+
 export default {
   getContactInputsContent: state => state.contactInputsContent,
   getOpenAddContactModal: state => state.openAddContactModal,
@@ -5,15 +6,16 @@ export default {
   getContactsLength: state => state.contacts.length,
 
   getContactById (state) {
-    const contacts = state.contacts[state.openAddContactModal.contactId]
-    const contactsToArray = []
+    let contactByIndex = state.contacts.find(contact => contact.id === state.openAddContactModal.contactId)
 
-    for (let contact in contacts) {
-      contactsToArray.push(contacts[contact])
+    let contactByIndexLikeArray = []
+
+    for (let item in contactByIndex) {
+      contactByIndexLikeArray.push(contactByIndex[item])
     }
 
-    return contactsToArray
+    return contactByIndexLikeArray
   },
 
-  getFoundContacts: state => state.foundContacts
+  getFoundContacts: state => state.foundContacts,
 }
