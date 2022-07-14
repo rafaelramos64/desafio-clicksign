@@ -1,7 +1,7 @@
 
 # Desafio - Clicksign
 
-### A aplicão consiste em consumir uma Rest Api que retorna todos os Países do mundo, bem como várias informações e realizar algumas operações de renderização de suas informações.
+### 
 
 # Tecnologias utilizadas
 ![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-black?style=flat-square&logo=nuxt.js)
@@ -12,7 +12,7 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
 
 # Link para a aplicação online
-### https://desafio-mova-nuxt.netlify.app/
+### https://desafio-clicksign.netlify.app/
 
 # Link para a descrição do desafio
 ### https://docs.google.com/document/d/1mszA5rE19c5FOSEzeEIMhXdOC6SKIMcTO7cSEfiVNKk/edit?usp=sharing
