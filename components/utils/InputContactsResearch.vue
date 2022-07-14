@@ -34,12 +34,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getContacts', 'getOpenAddContactModal']),
+    ...mapGetters(['getContacts', 'getOpenAddContactModal', 'getFoundContacts']),
   },
 
   watch: {
     contactsResearch () {
-      this.filterContacts()
+      if (this.contactsResearch === '') {
+        this.foundContacts = []
+      } else {
+        this.filterContacts()
+      }
     },
 
     foundContacts () {
@@ -54,6 +58,10 @@ export default {
         }
       },
       deep: true,
+    },
+
+    getFoundContacts () {
+      if (this.getFoundContacts.length === 0) this.contactsResearch = ''
     },
   },
 

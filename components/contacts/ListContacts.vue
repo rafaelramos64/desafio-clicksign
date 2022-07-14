@@ -26,7 +26,7 @@
 
             <tbody>
               <tr
-                v-for="(contact, index) in getContacts"
+                v-for="(contact, index) in getContactsToShow"
                 :key="contact.id"
                 class="table__tr"
                 :class="{ 'table__new-contact': contact.newContact }"
@@ -44,7 +44,7 @@
 
                   <v-tooltip top color="primary">
                     <template v-slot:activator="{ on, attrs }">
-                      <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }} {{contact.id}}</span>
+                      <span v-bind="attrs" v-on="on" >{{ getNameSurname(contact.name) }}</span>
                     </template>
 
                     <span>{{ contact.name }}</span>
@@ -102,10 +102,17 @@ export default {
   computed: {
     ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength', 'getFoundContacts',]),
 
-    getContactsList () {
+    getContactsToShow () {
       return this.getFoundContacts.length > 0 ? this.getFoundContacts : this.getContacts
     },
   },
+ /*  getContactsLists () {
+      if (this.getFoundContacts.length > 0) {
+        return this.getFoundContacts
+      } else {
+        return this.getContacts
+      }
+    }, */
 
   watch: {
     getContactsLength: {

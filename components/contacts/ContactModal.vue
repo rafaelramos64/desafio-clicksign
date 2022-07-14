@@ -115,7 +115,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts',]),
+    ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts', 'searchFoundContacts',]),
 
     cancelOperation () {
       this.clearContactInputsContent()
@@ -140,6 +140,7 @@ export default {
       this.searchContacts()
       this.clearContactInputsContent()
       this.openAddContactModal({ open: false, operation: this.operation })
+      this.searchFoundContacts([])
     },
 
     setId (currentContactsList, currentId) {
@@ -172,12 +173,10 @@ export default {
 
         contacts.push(contactInputsContent)
 
-
         localStorage.setItem('contactsList', JSON.stringify(contacts))
 
       }
     },
-
 
     editContact (contactInputsContent, contactId) {
       let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
