@@ -98,12 +98,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getContacts', 'getContactsLength'])
+    ...mapGetters(['getOpenAddContactModal', 'getContacts', 'getContactsLength'])
   },
 
   watch: {
     getContactsLength () {
-      this.removeContactFocus()
+      if (this.getOpenAddContactModal.operation === 'create') this.removeContactFocus()
     }
   },
 
@@ -150,14 +150,13 @@ export default {
     },
 
     removeContactFocus () {
-
       let contactsList = JSON.parse(localStorage.contactsList || '[]')
       
       setTimeout(() => {
         if (contactsList.length > 0) {
           contactsList = contactsList.map( contact => {
-            if (contact.newContact == true) contact.newContact = false
-      
+            if (contact.newContact === true) contact.newContact = false
+            
             return contact
           })
         }

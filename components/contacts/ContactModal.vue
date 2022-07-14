@@ -139,7 +139,7 @@ export default {
       
       this.searchContacts()
       this.clearContactInputsContent()
-      this.openAddContactModal({ open: false })
+      this.openAddContactModal({ open: false, operation: this.operation })
     },
 
     createContact (contactInputsContent) {
@@ -247,7 +247,7 @@ export default {
     border-radius: 16px !important;
     padding: 0.5rem 1rem !important;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16)  !important;
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px 0.5px rgba(0, 0, 0, 0.16) !important;
 
     &--disabled {
       opacity: 0.32;
