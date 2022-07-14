@@ -115,7 +115,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts',]),
+    ...mapActions(['openAddContactModal', 'clearContactInputsContent', 'searchContacts', 'searchFoundContacts',]),
 
     cancelOperation () {
       this.clearContactInputsContent()
@@ -140,11 +140,25 @@ export default {
       this.searchContacts()
       this.clearContactInputsContent()
       this.openAddContactModal({ open: false, operation: this.operation })
+      this.searchFoundContacts([])
+    },
+
+    setId (currentContactsList, currentId) {
+      if (!!currentContactsList.find(contact => contact.id == currentId)) {
+        currentId++
+        this.setId(currentContactsList, currentId)
+      }
+
+      return currentId
     },
 
     createContact (contactInputsContent) {
+      contactInputsContent['newContact'] = true
+
       if (localStorage.contactsList) {
-        contactInputsContent['newContact'] = true
+        const contactId = this.setId(this.currentContactsList, this.currentContactsList.length)
+        
+        contactInputsContent['id'] = contactId 
 
         // Adiciona o item na posição 0 do array substituindo 0 elementos
         this.currentContactsList.splice(0, 0, contactInputsContent)
@@ -155,24 +169,32 @@ export default {
 
       } else {
         const contacts = []
+        contactInputsContent['id'] = 0
 
-        contactInputsContent['newContact'] = true
         contacts.push(contactInputsContent)
 
         localStorage.setItem('contactsList', JSON.stringify(contacts))
+
       }
     },
 
     editContact (contactInputsContent, contactId) {
-      this.currentContactsList[contactId] = contactInputsContent
+      let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
+      contactInputsContent['id'] = contactId
+      contactInputsContent['newContact'] = false
+
+      this.currentContactsList[contactIndex] = contactInputsContent
 
       localStorage.setItem('contactsList', JSON.stringify(this.currentContactsList))
     },
 
     deleteContact (contactId) {
+      let contactIndex = this.currentContactsList.findIndex(contact => contact.id === contactId)
+
       /* Seleciona o contato a ser deletado de oldContactsListJson, remove e destaca ele na variável contactListDeleted.
         Esse valor fica guardado e pode ser usado para restaurar o contato deletado, por exemplo. */
-      const contactListDeleted = this.currentContactsList.splice(contactId, 1)
+      const contactListDeleted = this.currentContactsList.splice(contactIndex, 1)
+
       console.log('Contato deletado!')
       console.table(contactListDeleted)
 

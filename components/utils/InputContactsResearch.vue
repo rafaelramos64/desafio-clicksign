@@ -34,17 +34,35 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getContacts']),
+    ...mapGetters(['getContacts', 'getOpenAddContactModal', 'getFoundContacts']),
   },
 
   watch: {
     contactsResearch () {
-      this.filterContacts()
+      if (this.contactsResearch === '') {
+        this.foundContacts = []
+      } else {
+        this.filterContacts()
+      }
     },
 
     foundContacts () {
       this.searchFoundContacts(this.foundContacts)
-    }
+    },
+
+    getOpenAddContactModal: {
+      handler () {
+        if (this.getOpenAddContactModal.open && this.getOpenAddContactModal.operation == 'create') {
+          this.contactsResearch = ''
+          this.foundContacts = []
+        }
+      },
+      deep: true,
+    },
+
+    getFoundContacts () {
+      if (this.getFoundContacts.length === 0) this.contactsResearch = ''
+    },
   },
 
   methods: {
@@ -69,8 +87,8 @@ export default {
     },
 
     searchContactByName () {
-      this.foundContacts = this.getContacts.filter(contacts => {
-        return this.removeAccent(contacts.name).includes(this.searchContactsCorrect)
+      this.foundContacts = this.getContacts.filter(contact => {
+        return this.removeAccent(contact.name).includes(this.searchContactsCorrect)
       })
     },
   }

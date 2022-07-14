@@ -17,7 +17,6 @@ export default {
   },
 
   searchFoundContacts (context, payload) {
-    console.log('search')
     context.commit('changeFoundContacts', payload)
   },
 }
