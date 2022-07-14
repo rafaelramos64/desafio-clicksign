@@ -1,7 +1,7 @@
 <template>
   <div class="navbar d-sm-flex align-center justify-space-between">
     <v-btn to="/" text color="transparent" class="pa-0">
-      <img class="navbar__logo" src="@/assets/images/ic-logo.png" alt="Ubook Logo" />
+      <img class="navbar__logo" src="@/assets/images/ic-logo@2x.png" alt="Ubook Logo" />
     </v-btn>
 
     <create-contact-button v-if="getContacts.length > 0" :block="$vuetify.breakpoint.xs" />
