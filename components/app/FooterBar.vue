@@ -49,7 +49,9 @@
         </v-col>
 
         <v-col cols="4" class="d-flex justify-end">
-          <img width="40px" src="@/assets/images/clicksign.png" alt="Clicksign logo" />
+          <a href="https://www.clicksign.com/" target="_blank">
+            <img width="40px" src="@/assets/images/clicksign.png" alt="Clicksign logo" />
+          </a>
         </v-col>
       </v-row>
     </v-container>
