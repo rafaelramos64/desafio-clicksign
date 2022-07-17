@@ -49,7 +49,7 @@
         </v-col>
 
         <v-col cols="4" class="d-flex justify-end">
-          <a href="https://www.clicksign.com/" target="_blank">
+          <a href="https://www.clicksign.com/" target="_blank" class="increase-btn">
             <img width="40px" src="@/assets/images/clicksign.png" alt="Clicksign logo" />
           </a>
         </v-col>
@@ -77,7 +77,7 @@ export default {
 @import '@/assets/sass/variables.scss';
 
 .border-footer {
-  border-top: 1px solid rgba(0,0,0,.075) !important;
+  border-top: 1px solid rgba(0, 0, 0, .075) !important;
 }
 .rafael-ramos {
   color: $dark !important;
