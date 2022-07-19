@@ -16,8 +16,8 @@
 ## Métodos/Metodologias utilizadas
 ![Git Flow](https://img.shields.io/badge/-GitFlow-1572B6?style=flat-square&logo=gitflow)
 ![BEM](https://img.shields.io/badge/-BEM-1572B6?style=flat-square&logo=bem)
-![Pixel Perfect](https://img.shields.io/badge/-Pixel Perfect-1572B6?style=flat-square&logo=pixelperfect)
-![Style Guide](https://img.shields.io/badge/-Style Guide-1572B6?style=flat-square&logo=styleguide)
+![Pixel Perfect](https://img.shields.io/badge/-PixelPerfect-1572B6?style=flat-square&logo=pixelperfect)
+![Style Guide](https://img.shields.io/badge/-StyleGuide-1572B6?style=flat-square&logo=styleguide)
 
 ## Link para a aplicação online
 ### https://desafio-clicksign.netlify.app/
