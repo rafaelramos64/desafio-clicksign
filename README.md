@@ -11,11 +11,12 @@
 ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
+![Sass](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=sass)
 
 ## Link para a aplicação online
 ### https://desafio-clicksign.netlify.app/
 
-## Link para a descrição dos requisitos dodesafio
+## Link para a descrição dos requisitos do desafio
 ### https://docs.google.com/document/d/1qJyUJe4qrMNSGouXTblvAdOfceSgBDMOPux6G9s6d5Q/edit
 
 
