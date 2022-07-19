@@ -14,10 +14,10 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
 
 ## Métodos/Metodologias utilizadas
-![Git Flow](https://img.shields.io/badge/-GitFlow-1572B6?style=flat-square&logo=gitflow)
-![BEM](https://img.shields.io/badge/-BEM-1572B6?style=flat-square&logo=bem)
+![Git Flow](https://img.shields.io/badge/-GitFlow-black?style=flat-square&logo=gitflow)
+![BEM](https://img.shields.io/badge/-BEM-D5635D?style=flat-square&logo=bem)
 ![Pixel Perfect](https://img.shields.io/badge/-PixelPerfect-1572B6?style=flat-square&logo=pixelperfect)
-![Style Guide](https://img.shields.io/badge/-StyleGuide-1572B6?style=flat-square&logo=styleguide)
+![Style Guide](https://img.shields.io/badge/-StyleGuide-76B24F?style=flat-square&logo=styleguide)
 
 ## Link para a aplicação online
 ### https://desafio-clicksign.netlify.app/
