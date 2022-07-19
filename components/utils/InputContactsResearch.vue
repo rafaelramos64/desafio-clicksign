@@ -89,7 +89,7 @@ export default {
 
     searchContactByName () {
       this.foundContacts = this.getContacts.filter(contact => {
-        return this.removeAccent(contact.name).includes(this.searchContactsCorrect)
+        return this.removeAccent(contact.name).startsWith(this.searchContactsCorrect)
       })
     },
   }
