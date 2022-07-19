@@ -1,7 +1,8 @@
 
 # Desafio - Clicksign
 
-### 
+## Descrição do desafio
+### Neste teste, a proposta foi fazer uma agenda de contatos, na qual o usuário final poderá ver uma listagem dos contatos, adicionar novos, editá-los e excluí-los.
 
 # Tecnologias utilizadas
 ![Nuxt.js](https://img.shields.io/badge/-Nuxt.js-black?style=flat-square&logo=nuxt.js)
@@ -14,8 +15,8 @@
 # Link para a aplicação online
 ### https://desafio-clicksign.netlify.app/
 
-# Link para a descrição do desafio
-### https://docs.google.com/document/d/1mszA5rE19c5FOSEzeEIMhXdOC6SKIMcTO7cSEfiVNKk/edit?usp=sharing
+# Link para a descrição dos requisitos dodesafio
+### https://docs.google.com/document/d/1qJyUJe4qrMNSGouXTblvAdOfceSgBDMOPux6G9s6d5Q/edit
 
 
 ## Build Setup
